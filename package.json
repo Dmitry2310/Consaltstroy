@@ -1,0 +1,20 @@
+{
+  "name": "consalt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dmitry2310/Consaltstroy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dmitry2310/Consaltstroy/issues"
+  },
+  "homepage": "https://github.com/Dmitry2310/Consaltstroy#readme"
+}
