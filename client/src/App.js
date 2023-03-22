@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from "./Components/Home";
 import ScrollToTop from "./assets/ScrollToTop";
+import Header from "./Components/Header";
 
 import Container from '@mui/material/Container';
 import { createTheme } from "@material-ui/core";
@@ -26,6 +27,7 @@ const App = () => {
   return (
     < Router>
       < Container maxWidth="xl" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Header />
         <ScrollToTop>
           <Routes>
             < Route path="/" exact element={<Navigate to="/home" replace />} />

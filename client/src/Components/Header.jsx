@@ -48,7 +48,7 @@ const Header = () => {
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Box sx={{ position: 'absolute', top: '0', left: '0', display: { xs: 'none', md: 'flex' } }}>
-                            <img alt="Logo" src={Logo} style={{ width: '120px' }} /> {/* ICON TABLE*/}
+                            <img alt="Logo" src={Logo} style={{ width: '120px', zIndex: '1' }} /> {/* ICON TABLE*/}
                         </Box>
 
                         <Typography
@@ -70,7 +70,7 @@ const Header = () => {
                             LOGO
                         </Typography>  {/* ICON TEXT TABLE*/}
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}> {/* MOBILE ICON LIST */}
+                        <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}> {/* MOBILE ICON LIST */}
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -107,7 +107,7 @@ const Header = () => {
                             </Menu>
                         </Box>
 
-                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, justifyContent: 'center', marginLeft: '15%' }}>
                             <img alt="Logo" src={Logo} style={{ width: '80px', margin: '6px 0 0 0' }} />    {/* MOBILE ICON MIDDLE*/}
                         </Box>
 
@@ -116,7 +116,7 @@ const Header = () => {
                                 <Button
                                     key={page}
                                     onClick={handleCloseNavMenu}
-                                    sx={{color: 'white', display: 'block', marginLeft: '5%' }}
+                                    sx={{color: 'white', display: 'block', marginLeft: '7%' }}
                                 >
                                     {page}
                                 </Button>
