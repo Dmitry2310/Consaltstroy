@@ -1,5 +1,5 @@
 import React from "react";
-import { themeColor } from "./../App";
+import { themeColorNew } from "./../App";
 import Logo from './../assets/Images/Logo.png'
 
 import { ThemeProvider } from '@mui/material/styles';
@@ -43,7 +43,7 @@ const Header = () => {
     };
 
     return (
-        <ThemeProvider theme={themeColor} >
+        <ThemeProvider theme={themeColorNew} >
             <AppBar position="static" sx={{ position: 'relative' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>

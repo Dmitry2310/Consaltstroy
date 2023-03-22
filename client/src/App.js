@@ -5,9 +5,9 @@ import ScrollToTop from "./assets/ScrollToTop";
 import Header from "./Components/Header";
 
 import Container from '@mui/material/Container';
-import { createTheme } from "@material-ui/core";
+import { createTheme } from '@mui/material/styles';
 
-export const themeColor = createTheme({
+export const themeColorNew = createTheme({
   palette: {
       primary: {
           main: '#054982',
