@@ -1,8 +1,6 @@
 import React from "react";
-import { themeColorNew } from "./../App";
 import Logo from './../assets/Images/Logo.png'
 
-import { ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,7 +12,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -43,7 +40,7 @@ const Header = () => {
     };
 
     return (
-        <ThemeProvider theme={themeColorNew} >
+       
             <AppBar position="static" sx={{ position: 'relative' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -194,7 +191,7 @@ const Header = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-        </ThemeProvider>
+      
     )
 }
 
