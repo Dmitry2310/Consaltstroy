@@ -11,6 +11,13 @@ import crad3pic from './../assets/Images/card3pic.png';
 import crad4pic from './../assets/Images/card4pic.png';
 import crad5pic from './../assets/Images/card5pic.png';
 import crad6pic from './../assets/Images/card6pic.png';
+import icon1 from './../assets/Images/icon1.png';
+import icon2 from './../assets/Images/icon2.png';
+import icon3 from './../assets/Images/icon3.png';
+import icon4 from './../assets/Images/icon4.png';
+import icon5 from './../assets/Images/icon5.png';
+import icon6 from './../assets/Images/icon6.png';
+import icon7 from './../assets/Images/icon7.png';
 import bussinessImage from './../assets/Images/bussinessImage.png';
 
 import { Container } from "@mui/system";
@@ -101,6 +108,44 @@ const cardServices = [
         cardColor: "#ffffff",
         textColor: "#2B3F74"
     },
+];
+
+const ourAdvatages = [
+    {
+        img: icon1,
+        text: "Опыт и квалификация",
+        pad: '0px'
+    },
+    {
+        img: icon2,
+        text: "Гарантии",
+        pad: '100px'
+    },
+    {
+        img: icon3,
+        text: "Контроль качества",
+        pad: '0px'
+    },
+    {
+        img: icon4,
+        text: "Широкий спектр услуг",
+        pad: '100px'
+    },
+    {
+        img: icon5,
+        text: "Соблюдение сроков",
+        pad: '0px'
+    },
+    {
+        img: icon6,
+        text: "Экономия времени и ресурсов",
+        pad: '100px'
+    },
+    {
+        img: icon7,
+        text: "Надежность",
+        pad: '0px'
+    },
 ]
 
 const HomePage = () => {
@@ -186,18 +231,18 @@ const HomePage = () => {
                     {cardServices.map((card) => {
                         return (
                             <Grid key={card.title} item sm={11.9} md={5.9} lg={3.9} sx={{ background: { xs: card.cardColor }, border: '0.5px solid #2B3F74' }}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'space-between', height: 'auto' }}>
-                                    <Box sx={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', height: '222px' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: { xs: '500px', md: '600px' ,lg: '800px'} }}>
+                                    <Box sx={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', height: '222px', flexGrow: '0' }}>
                                         <img alt="cardImage" src={card.img} style={{ width: '100%' }} />
                                         <Box sx={{ display: 'flex', position: 'absolute', top: '0', width: '100%', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                             <Typography sx={{ fontFamily: 'Helvetica', fontWeight: '700', fontSize: '24px', textAlign: 'center', fontStyle: 'italic', color: 'white', zIndex: '1', margin: '0 auto', width: '60%', textShadow: '4px 4px 15px rgba(0, 0, 0, 0.25)' }}>{card.title}</Typography>
                                         </Box>
                                         <Box sx={{ background: 'rgba(0, 0, 0, 0.4)', mixBlendMode: 'multiply', width: '100%', position: 'absolute', height: '100%' }}></Box>
                                     </Box>
-                                    <Box sx={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
-                                        <Typography color={card.textColor} sx={{ textAlign: 'center', width: '98%', fontFamily: 'Helvetica', fontWeight: '400', fontStyle: 'italic', fontSize: '18px' }}>{card.text}</Typography>
+                                    <Box sx={{ padding: '20px', display: 'flex', justifyContent: 'flex-start', flexGrow: '2' }}>
+                                        <Typography color={card.textColor} sx={{ textAlign: 'center', width: '98%', fontFamily: 'Helvetica', fontWeight: '400', fontStyle: 'italic', fontSize: { xs: '12px', md: '16px', lg: '18px' } }}>{card.text}</Typography>
                                     </Box>
-                                    <Box sx={{ display: 'flex' }}>
+                                    <Box sx={{ display: 'flex', flexGrow: '0' }}>
                                         <Button variant="text" color="secondary" sx={{ marginLeft: '10%', padding: '25px', marginTop: 'auto' }}>
                                             <Typography sx={{ textDecoration: 'underline', fontStyle: 'italic' }}>Подробнее</Typography>
                                             <ChevronRightIcon />
@@ -209,12 +254,12 @@ const HomePage = () => {
                     })}
                 </Grid>
             </Box>
-            <Box sx={{ width: '100%', height: '1000px', backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
+            <Box sx={{ width: '100%', minHeight: '1000px', backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
                 <Box sx={{ background: 'rgba(0, 0, 0, 0.5)', mixBlendMode: 'multiply', height: '100%', width: '100%', position: 'absolute' }}></Box>
                 <Box sx={{ position: 'absolute', top: '0', width: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <Box sx={{ width: '60%', padding: '30px 0 0 15px' }}>
-                        <Typography sx={{ fontWeight: '700', fontSize: '25px', textAlign: 'center', fontFamily: 'Helvetica', color: 'white', textDecoration: 'underline' }}>О нас</Typography>
-                        <Typography sx={{fontWeight: '500', fontSize: '15px', fontStyle: 'italic', color: 'white', padding: '20px 0 0 20px', textAlign: 'center'}}>   Компания “Консалтэкспертстрой” - это команда профессионалов, специализирующихся на ведении объектов капитального строительства полного цикла: оформление исходно-разрешительной документации, составление и экспертиза сметной документации, оценка объектов недвижимости, проектирование, инженерное и правовое сопровождение строительных работ, ввод в эксплуатацию.
+                    <Box sx={{ width: { md: '100%', lg: '60%' }, padding: '20px 0 0 15px' }}>
+                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white', textDecoration: 'underline' }}>О нас</Typography>
+                        <Typography sx={{ fontWeight: '500', fontSize: { xs: '10px', sm: '12px', md: '15px' }, fontStyle: 'italic', color: 'white', padding: '20px 40px 0 20px', textAlign: 'center' }}>   Компания “Консалтэкспертстрой” - это команда профессионалов, специализирующихся на ведении объектов капитального строительства полного цикла: оформление исходно-разрешительной документации, составление и экспертиза сметной документации, оценка объектов недвижимости, проектирование, инженерное и правовое сопровождение строительных работ, ввод в эксплуатацию.
                             Наша команда экспертов имеет богатый опыт работы в области строительства и   недвижимости, и готова предложить широкий спектр услуг для различных типов объектов. Мы разрабатываем проектную документацию с учетом всех норм и правил строительства, а также гарантируем контроль за ее выполнением в процессе строительства.
                             Мы также предоставляем услуги оценки недвижимости и объектов строительства, включая юридическую экспертизу и анализ рыночной стоимости. Наши специалисты используют современные методы оценки и профессионально подходят к выполнению всех задач, чтобы обеспечить точность и достоверность результатов.
                             Мы поможем Вам определить реальную стоимость строительства, реконструкции или ремонта объекта недвижимости, составить смету и контролировать ее выполнение. Наши специалисты готовы разработать индивидуальное техническое задание и проектную документацию, учитывая Ваши требования и пожелания.
@@ -222,10 +267,22 @@ const HomePage = () => {
                             Компания “Консалтэкспертстрой”  - это надежный партнер, который гарантирует своевременное и качественное выполнение всех работ. Мы имеем многолетний опыт работы и отличные рекомендации от наших клиентов.
                             Обращайтесь к нам, и мы с удовольствием поможем Вам реализовать Ваши проекты!</Typography>
                     </Box>
-                    <Box sx={{width: '100%', paddingTop: '20px'}}>
-                        <Typography sx={{fontWeight: '700', fontSize: '25px', textAlign: 'center', fontFamily: 'Helvetica', color: 'white'}}>НАШИ ПРЕИМУЩЕСТВА</Typography>
+                    <Box sx={{ width: '100%', paddingTop: '15px' }}>
+                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white' }}>НАШИ ПРЕИМУЩЕСТВА</Typography>
                     </Box>
-                    <Grid container>
+                    <Grid container gap={1} sx={{ justifyContent: 'space-around', paddingTop: '20px' }}>
+                        {ourAdvatages.map((card, i) => {
+                            return (
+                                <Grid key={i} item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} xs={3} md={2} lg={1.4} >
+                                    <Box sx={{ height: { xs: '80px', md: '130px', lg: '160px' }, width: { xs: '80px', md: '130px', lg: '160px' }, borderRadius: '160px', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: { lg: `${card.pad}` } }}>
+                                        <Box sx={{ height: { xs: '50px', lg: '70px' }, width: { xs: '50px', lg: '70px' }, display: 'flex' }}>
+                                            <img alt="icon" src={card.img} />
+                                        </Box>
+                                    </Box>
+                                    <Typography sx={{ textAlign: 'center', fontFamily: 'Helvetica', color: 'white', fontWeight: '700', fontSize: { xs: '13px', md: '20px', lg: '23px' }, padding: '20px 3px 0 3px' }}>{card.text}</Typography>
+                                </Grid>
+                            )
+                        })}
 
                     </Grid>
                 </Box>
