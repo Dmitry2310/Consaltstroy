@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import Cover from './../assets/Images/Cover.png';
 import HandsIcon from './../assets/Images/HandsIcon.png';
 import SignIcon from './../assets/Images/SignIcon.png';
@@ -19,6 +21,7 @@ import icon5 from './../assets/Images/icon5.png';
 import icon6 from './../assets/Images/icon6.png';
 import icon7 from './../assets/Images/icon7.png';
 import bussinessImage from './../assets/Images/bussinessImage.png';
+import { useRef } from "react";
 
 import { Container } from "@mui/system";
 import Button from '@mui/material/Button';
@@ -146,9 +149,34 @@ const ourAdvatages = [
         text: "Надежность",
         pad: '0px'
     },
-]
+];
 
 const HomePage = () => {
+
+    const ref = useSelector((state) => state.manage.ref)
+
+    const homeOnClickRef = useRef(null);
+    const aboutOnClickRef = useRef(null);
+    const contactOnClickRef = useRef(null);
+
+    useEffect(() => {
+        if (ref === 'contact') {
+            scrollEffect(contactOnClickRef);
+        }
+        if (ref === 'home') {
+            scrollEffect(homeOnClickRef);
+        }
+        if (ref === 'about') {
+            scrollEffect(aboutOnClickRef);
+        }
+    },[ref]);
+
+    const scrollEffect = (targetRef) => {
+        targetRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    }
 
     return (
         <Container maxWidth="xl">
@@ -195,7 +223,7 @@ const HomePage = () => {
                     </Grid>
                 </Box>
             </Box>
-            <Box sx={{ padding: { xs: '30px 0 30px 0', md: '60px 0 60px 0' } }}>
+            <Box ref={homeOnClickRef} sx={{ padding: { xs: '30px 0 30px 0', md: '60px 0 60px 0' } }}>
                 <Grid container gap={1} sx={{ justifyContent: 'space-around' }}>
                     <Grid item xs={12} md={5} lg={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         {welcomeBlockButtons.map((but) => {
@@ -231,7 +259,7 @@ const HomePage = () => {
                     {cardServices.map((card) => {
                         return (
                             <Grid key={card.title} item sm={11.9} md={5.9} lg={3.9} sx={{ background: { xs: card.cardColor }, border: '0.5px solid #2B3F74' }}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: { xs: '500px', md: '600px' ,lg: '800px'} }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: { xs: '500px', md: '600px', lg: '800px' } }}>
                                     <Box sx={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', height: '222px', flexGrow: '0' }}>
                                         <img alt="cardImage" src={card.img} style={{ width: '100%' }} />
                                         <Box sx={{ display: 'flex', position: 'absolute', top: '0', width: '100%', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
@@ -254,7 +282,7 @@ const HomePage = () => {
                     })}
                 </Grid>
             </Box>
-            <Box sx={{ width: '100%', minHeight: '1000px', backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
+            <Box ref={aboutOnClickRef} sx={{ width: '100%', minHeight: '1000px', backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
                 <Box sx={{ background: 'rgba(0, 0, 0, 0.5)', mixBlendMode: 'multiply', height: '100%', width: '100%', position: 'absolute' }}></Box>
                 <Box sx={{ position: 'absolute', top: '0', width: '100%', display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ width: { md: '100%', lg: '60%' }, padding: '20px 0 0 15px' }}>
@@ -273,19 +301,25 @@ const HomePage = () => {
                     <Grid container gap={1} sx={{ justifyContent: 'space-around', paddingTop: '20px' }}>
                         {ourAdvatages.map((card, i) => {
                             return (
-                                <Grid key={i} item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} xs={3} md={2} lg={1.4} >
-                                    <Box sx={{ height: { xs: '80px', md: '130px', lg: '160px' }, width: { xs: '80px', md: '130px', lg: '160px' }, borderRadius: '160px', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: { lg: `${card.pad}` } }}>
+                                <Grid key={i} item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} xs={3} md={2} lg={1.3} >
+                                    <Box sx={{ height: { xs: '80px', md: '120px', lg: '140px' }, width: { xs: '80px', md: '120px', lg: '140px' }, borderRadius: '160px', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: { lg: `${card.pad}` } }}>
                                         <Box sx={{ height: { xs: '50px', lg: '70px' }, width: { xs: '50px', lg: '70px' }, display: 'flex' }}>
                                             <img alt="icon" src={card.img} />
                                         </Box>
                                     </Box>
-                                    <Typography sx={{ textAlign: 'center', fontFamily: 'Helvetica', color: 'white', fontWeight: '700', fontSize: { xs: '13px', md: '20px', lg: '23px' }, padding: '20px 3px 0 3px' }}>{card.text}</Typography>
+                                    <Typography sx={{ textAlign: 'center', fontFamily: 'Helvetica', color: 'white', fontWeight: '700', fontSize: { xs: '13px', md: '18px', lg: '21px' }, padding: '20px 3px 0 3px' }}>{card.text}</Typography>
                                 </Grid>
                             )
                         })}
-
                     </Grid>
                 </Box>
+            </Box>
+            <Box ref={contactOnClickRef}>
+                <Grid container sx={{ justifyContent: 'space-around', paddingTop: '20px', marginTop: '30px', background: '#2B3F74' }}>
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px' }}>
+                        <Typography sx={{ width: '100%', textAlign: 'center', color: 'white' }}>Contacts</Typography>
+                    </Grid>
+                </Grid>
             </Box>
         </Container>
     )

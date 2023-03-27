@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from './../assets/Images/Logo.png'
+import { useDispatch } from "react-redux";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,10 +17,26 @@ import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
-const pages = ['Главная', 'О Компании', 'Контакты'];
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const Header = () => {
+const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickRef }) => {
+
+    const dispatch = useDispatch();
+
+    const pages = [
+        {
+            page: 'Главная',
+            name: 'home'
+        },
+        {
+            page: 'О Компании',
+            name: 'about'
+        },
+        { 
+            page: 'Контакты',
+            name: 'contact'
+        }];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElService, setAnchorElService] = React.useState(null);
@@ -31,7 +48,9 @@ const Header = () => {
         setAnchorElService(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (e) => {
+        console.log(e.currentTarget)
+        dispatch({type: "GO_TO", payload: e.currentTarget.name});
         setAnchorElNav(null);
     };
 
@@ -40,7 +59,7 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ position: 'relative' }}>
+        <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ position: 'absolute', top: '0', left: '0', display: { xs: 'none', md: 'flex' } }}>
@@ -96,8 +115,8 @@ const Header = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                <MenuItem key={page.page} name={page.name} onClick={(e) => handleCloseNavMenu(e)}>
+                                    <Typography textAlign="center">{page.page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -110,11 +129,12 @@ const Header = () => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>  {/* TABLE LIST PAGE */}
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={page.page}
+                                name={page.name}
+                                onClick={(e) => handleCloseNavMenu(e)}
                                 sx={{ color: 'white', display: 'block', marginLeft: '7%' }}
                             >
-                                {page}
+                                {page.page}
                             </Button>
                         ))}
                         <Box >
@@ -191,6 +211,7 @@ const Header = () => {
             </Container>
         </AppBar>
     )
+    
 }
 
 export default Header;

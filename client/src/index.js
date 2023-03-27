@@ -1,10 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import { configureStore } from '@reduxjs/toolkit';
+import reducers from "./reducers/index.js";
+import { applyMiddleware, compose } from "redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = configureStore({ reducer: reducers }, compose(applyMiddleware(thunk)));
+
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>
+  </Provider>
 );
+
+window.store = store;
