@@ -169,7 +169,7 @@ const HomePage = () => {
         if (ref === 'about') {
             scrollEffect(aboutOnClickRef);
         }
-    },[ref]);
+    }, [ref]);
 
     const scrollEffect = (targetRef) => {
         targetRef.current.scrollIntoView({
@@ -282,7 +282,7 @@ const HomePage = () => {
                     })}
                 </Grid>
             </Box>
-            <Box ref={aboutOnClickRef} sx={{ width: '100%', minHeight: '1000px', backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
+            <Box ref={aboutOnClickRef} sx={{ width: '100%', minHeight: { xs: '550px' ,sm: '1000px'}, backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
                 <Box sx={{ background: 'rgba(0, 0, 0, 0.5)', mixBlendMode: 'multiply', height: '100%', width: '100%', position: 'absolute' }}></Box>
                 <Box sx={{ position: 'absolute', top: '0', width: '100%', display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ width: { md: '100%', lg: '60%' }, padding: '20px 0 0 15px' }}>
@@ -296,12 +296,12 @@ const HomePage = () => {
                             Обращайтесь к нам, и мы с удовольствием поможем Вам реализовать Ваши проекты!</Typography>
                     </Box>
                     <Box sx={{ width: '100%', paddingTop: '15px' }}>
-                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white' }}>НАШИ ПРЕИМУЩЕСТВА</Typography>
+                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white', display: {xs: 'none', sm: 'block'} }}>НАШИ ПРЕИМУЩЕСТВА</Typography>
                     </Box>
-                    <Grid container gap={1} sx={{ justifyContent: 'space-around', paddingTop: '20px' }}>
+                    <Grid container gap={1} sx={{ justifyContent: 'space-around', paddingTop: '20px', dipslay: { sm: 'none' } }}>
                         {ourAdvatages.map((card, i) => {
                             return (
-                                <Grid key={i} item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} xs={3} md={2} lg={1.3} >
+                                <Grid key={i} item sx={{ display: {xs: 'none', sm: 'flex'}, flexDirection: 'column', alignItems: 'center' }} sm={3} md={2} lg={1.3} >
                                     <Box sx={{ height: { xs: '80px', md: '120px', lg: '140px' }, width: { xs: '80px', md: '120px', lg: '140px' }, borderRadius: '160px', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: { lg: `${card.pad}` } }}>
                                         <Box sx={{ height: { xs: '50px', lg: '70px' }, width: { xs: '50px', lg: '70px' }, display: 'flex' }}>
                                             <img alt="icon" src={card.img} />

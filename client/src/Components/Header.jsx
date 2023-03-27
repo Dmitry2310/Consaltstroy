@@ -11,16 +11,11 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import Services from "./Services";
 
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickRef }) => {
+const Header = () => {
 
     const dispatch = useDispatch();
 
@@ -33,7 +28,7 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
             page: 'О Компании',
             name: 'about'
         },
-        { 
+        {
             page: 'Контакты',
             name: 'contact'
         }];
@@ -49,8 +44,7 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
     };
 
     const handleCloseNavMenu = (e) => {
-        console.log(e.currentTarget)
-        dispatch({type: "GO_TO", payload: e.currentTarget.name});
+        dispatch({ type: "GO_TO", payload: e.currentTarget.name });
         setAnchorElNav(null);
     };
 
@@ -115,9 +109,14 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.page} name={page.name} onClick={(e) => handleCloseNavMenu(e)}>
-                                    <Typography textAlign="center">{page.page}</Typography>
-                                </MenuItem>
+                                <Button
+                                    key={page.page}
+                                    name={page.name}
+                                    onClick={(e) => handleCloseNavMenu(e)}
+                                    sx={{ display: 'block' }}
+                                >
+                                    {page.page}
+                                </Button>
                             ))}
                         </Menu>
                     </Box>
@@ -126,7 +125,7 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
                         <img alt="Logo" src={Logo} style={{ width: '80px', margin: '6px 0 0 0' }} />    {/* MOBILE ICON MIDDLE*/}
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>  {/* TABLE LIST PAGE */}
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
                                 key={page.page}
@@ -137,66 +136,16 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
                                 {page.page}
                             </Button>
                         ))}
-                        <Box >
-                            <Button onClick={handleOpenServiceMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}>
-                                услуги
-                                <ArrowDropDown sx={{ width: '40px' }} />
-                            </Button>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElService}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElService)}
-                                onClose={handleCloseServiceMenu}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseServiceMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Services handleCloseServiceMenu={handleCloseServiceMenu} handleOpenServiceMenu={handleOpenServiceMenu} anchorElService={anchorElService} />
                         </Box>
+
                     </Box>
 
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>    {/* RIGHT ICON LIST*/}
-                        <Tooltip title="Услуги Компании">
-                            <Button onClick={handleOpenServiceMenu}>
-                                <ArrowDropDown sx={{ color: 'white', width: '40px' }} />
-                                <Typography size="large" sx={{ color: 'white' }}>услуги</Typography>
-                            </Button>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElService}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElService)}
-                            onClose={handleCloseServiceMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseServiceMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                    <Box sx={{ display: { xs: 'flex', md: 'none', marginRight: '20px' } }}>
+                        <Services handleCloseServiceMenu={handleCloseServiceMenu} handleOpenServiceMenu={handleOpenServiceMenu} anchorElService={anchorElService} />
                     </Box>
+
                     <Box sx={{ flexGrow: '0', display: { xs: 'none', md: 'flex' }, flexDirection: 'column' }}>    {/* RIGHT TABLE CONTACTS*/}
                         <Box sx={{ display: 'flex', gap: '5px', }}>
                             <LocalPhoneIcon sx={{ color: 'white', width: '40px' }} />
@@ -211,7 +160,7 @@ const Header = ({ scrollEffect, homeOnClickRef, aboutOnClickRef, contactOnClickR
             </Container>
         </AppBar>
     )
-    
+
 }
 
 export default Header;
