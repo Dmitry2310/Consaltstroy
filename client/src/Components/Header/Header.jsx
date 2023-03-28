@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from './../assets/Images/Logo.png'
+import Logo from './../../assets/Images/Logo.png'
 import { useDispatch } from "react-redux";
 
 import AppBar from '@mui/material/AppBar';

@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CustomerService from "./CustomerService"
+import Consalting from "./Consalting";
 
 const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElService }) => {
 
@@ -35,7 +37,7 @@ const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElServi
     };
 
     //open third tab
-    const [anchorElThird, setAnchorElThird] = React.useState(null);
+   /*  const [anchorElThird, setAnchorElThird] = React.useState(null);
 
     const handleOpenThirdMenu = (event) => {
         if (anchorElThird !== null) return;
@@ -44,7 +46,7 @@ const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElServi
     const handleCloseThirdMenu = () => {
         handleCloseServiceMenu();
         setAnchorElThird(null);
-    };
+    }; */
 
     return (
         <Box>
@@ -71,34 +73,15 @@ const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElServi
                 <MenuItem onClick={handleOpenFirstMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography textAlign="center">Услуги технического заказчика</Typography>
                     <ChevronRightIcon color="secondary" />
-                    <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElFirst}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        open={Boolean(anchorElFirst)}
-                        onClose={handleCloseServiceMenu}
-                    >
-                        <MenuItem onClick={handleCloseFirstMenu}>
-                            <Typography textAlign="center" >Независимая </Typography>
-                        </MenuItem>
-                    </Menu>
-
+                    <CustomerService anchorElFirst={anchorElFirst} handleCloseFirstMenu={handleCloseFirstMenu} />
                 </MenuItem>
                 <MenuItem onClick={handleCloseServiceMenu}>
                     <Typography textAlign="center" >Независимая экспертиза сметной документации</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <MenuItem onClick={handleOpenSecondMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography textAlign="center" >Сметный консалтинг</Typography>
                     <ChevronRightIcon color="secondary" />
+                    <Consalting anchorElSecond={anchorElSecond} handleCloseSecondMenu={handleCloseSecondMenu}/>
                 </MenuItem>
                 <MenuItem onClick={handleCloseServiceMenu}>
                     <Typography textAlign="center" >Финансово-технический аудит</Typography>

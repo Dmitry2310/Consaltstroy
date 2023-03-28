@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from "./Pages/HomePage";
 import ScrollToTop from "./assets/ScrollToTop";
-import Header from "./Components/Header";
+import Header from "./Components/Header/Header";
 
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
