@@ -1,20 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ConsaltMenu from './ConsaltMenu';
+import Typography from '@mui/material/Typography';
+import "./styles.css";
 
-const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElService }) => {
-
+const Services = () => {
     let ref = useRef();
 
     const [dropdown, setDropdown] = useState(false);
+    const [openDropMenu, setOpenDropMenu] = useState(false);
     const [menu, setMenu] = useState('');
+
+
+    const openMenu = () => {
+        setOpenDropMenu(!openDropMenu)
+    }
 
     useEffect(() => {
         const handler = (event) => {
@@ -43,69 +47,43 @@ const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElServi
         setMenu('');
     };
 
+    console.log(openDropMenu)
+
     return (
-        <Box>
-            <Button onClick={handleOpenServiceMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}> {/* SERVICES TABLE */}
+        <Box sx={{ position: 'relative' }}>
+            <Button onClick={openMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}> {/* SERVICES TABLE */}
                 услуги
                 <ArrowDropDown color='secondary' sx={{ width: '40px' }} />
             </Button>
-            <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElService}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={Boolean(anchorElService)}
-                onClose={handleCloseServiceMenu}
-            >
-                <MenuItem ref={ref} onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} onClick={handleCloseServiceMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center">Услуги технического заказчика</Typography>
-                    <ChevronRightIcon color="secondary" />
-                    {(dropdown && menu === 'services') ?
-                        <Box>
-                            <Typography>ret</Typography>
-                        </Box>
-                        :
-                        null
-                    }
-                </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu}>
-                    <Typography textAlign="center" >Независимая экспертиза сметной документации</Typography>
-                </MenuItem>
-                <MenuItem sx={{ position: 'relative' }} ref={ref} onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} onClick={handleCloseServiceMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center" >Сметный консалтинг</Typography>
-                    <ChevronRightIcon color="secondary" />
-                    {(dropdown && menu === 'consalt') ?
-                        <Box sx={{ position: 'relative', width: '10%' }}>
+            {openDropMenu ?
+                <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', bottom: '-285px', left: '-120px', background: 'white', zIndex: '10', width: '240px', padding: '10px' }}>
+                    <Box ref={ref} onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} className='menuItem' >
+                        <Typography color="primary">Услуги технического заказчика</Typography>
+                        <ChevronRightIcon color="secondary" />
+                    </Box>
+                    <Box >
+                        <Typography color="primary" className='menuItem'>Независимая экспертиза сметной документации</Typography>
+                    </Box>
+                    <Box ref={ref} onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} className='menuItem'>
+                        <Typography color="primary" >Сметный консалтинг</Typography>
+                        <ChevronRightIcon color="secondary" />
+                        {dropdown && menu === 'consalt' ?
                             <ConsaltMenu />
-                        </Box>
-
-                        :
-                        null
-                    }
-                </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu}>
-                    <Typography textAlign="center" >Финансово-технический аудит</Typography>
-                </MenuItem>
-                <MenuItem ref={ref} onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} onClick={handleCloseServiceMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center" >Составление сметной документации</Typography>
-                    <ChevronRightIcon color="secondary" />
-                    {(dropdown && menu === 'documentation') ?
-                        <Box>
-                            <Typography>ret3</Typography>
-                        </Box>
-                        :
-                        null
-                    }
-                </MenuItem>
-            </Menu>
+                            :
+                            null
+                        }
+                    </Box>
+                    <Box >
+                        <Typography color="primary" className='menuItem'>Финансово-технический аудит</Typography>
+                    </Box>
+                    <Box ref={ref} onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} className='menuItem'>
+                        <Typography color="primary" >Составление сметной документации</Typography>
+                        <ChevronRightIcon color="secondary" />
+                    </Box>
+                </Box>
+                :
+                null
+            }
         </Box>
     )
 }

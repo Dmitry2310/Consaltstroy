@@ -1,0 +1,11 @@
+.menuItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.menuItem:hover {
+    background-color: beige;
+    cursor: pointer;
+}

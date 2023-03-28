@@ -139,7 +139,6 @@ const Header = () => {
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <Services handleCloseServiceMenu={handleCloseServiceMenu} handleOpenServiceMenu={handleOpenServiceMenu} anchorElService={anchorElService} />
                         </Box>
-
                     </Box>
 
                     <Box sx={{ display: { xs: 'flex', md: 'none', marginRight: '20px' } }}>
