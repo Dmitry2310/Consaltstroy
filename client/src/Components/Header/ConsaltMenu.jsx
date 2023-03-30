@@ -1,47 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
-
+import React from "react";
+import './styles.css';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const ConsaltMenu = () => {
-
-    let ref = useRef();
-
-    const [dropdown, setDropdown] = useState(false);
-   
-
-    useEffect(() => {
-        const handler = (event) => {
-            if (dropdown && ref.current && !ref.current.contains(event.target)) {
-                setDropdown(false);
-            }
-        };
-        document.addEventListener("mousedown", handler);
-        document.addEventListener("touchstart", handler);
-        return () => {
-            // Cleanup the event listener
-            document.removeEventListener("mousedown", handler);
-            document.removeEventListener("touchstart", handler);
-        };
-    }, [dropdown]);
-
-    const onMouseEnter = (text) => {
-        /* window.innerWidth > 960 && */
-        setDropdown(true);
-        
-    };
-
-    const onMouseLeave = () => {
-        /* window.innerWidth > 960 && */
-        setDropdown(false);
-       
-    };
+const ConsaltMenu = ({onMouseLeave, onMouseEnter}) => {
 
     return (
-        <Box sx={{position: 'absolute', top: '0', color: 'red'}}>
-            <Typography>RETljhnsodn;esdpend;nnbkblkblbnlin</Typography>
-            <Typography>RETljhnsodn;esdpend;n</Typography>
-            <Typography>RETljhnsodn;esdpend;n</Typography>
+        <Box onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '17px', background: 'white', right: '-255px', width: '240px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
+            <Box  className='menuItemConsalt' >
+                <Typography className="menuItemText" color="primary">Сметный консалтинг подрядчикам, субподрядчикам и ИП</Typography>
+            </Box>
+            <Box  className='menuItemConsalt' >
+                <Typography className="menuItemText" color="primary">Сметный консалтинг государственным заказчикам</Typography>
+            </Box>
+            <Box    className='menuItemConsalt' >
+                <Typography className="menuItemText" color="primary">Сметный консалтинг проектным организациям</Typography>
+            </Box>
+            <Box   className='menuItemConsalt' >
+                <Typography className="menuItemText" color="primary">Сметный консалтинг проектным организациям</Typography>
+            </Box>
+            <Box  className='menuItemConsalt' >
+                <Typography className="menuItemText" color="primary">Сметный консалтинг физическим лицам</Typography>
+            </Box>
         </Box>
     )
 }

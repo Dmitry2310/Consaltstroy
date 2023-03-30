@@ -3,9 +3,21 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    position: relative;
+}
+.menuItemConsalt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
 }
 
 .menuItem:hover {
-    background-color: beige;
     cursor: pointer;
+    text-decoration: underline;
+}
+
+.menuItemText:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

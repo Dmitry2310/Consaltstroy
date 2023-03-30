@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from './../../assets/Images/Logo.png'
 import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -18,6 +20,8 @@ import Services from "./Services";
 const Header = () => {
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const pages = [
         {
@@ -33,30 +37,40 @@ const Header = () => {
             name: 'contact'
         }];
 
+    const ancorsName = ['home', 'about', 'contact'];
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElService, setAnchorElService] = React.useState(null);
+    const [temporaryAncor, setTemporaryAncor] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenServiceMenu = (event) => {
-        setAnchorElService(event.currentTarget);
-    };
 
     const handleCloseNavMenu = (e) => {
-        dispatch({ type: "GO_TO", payload: e.currentTarget.name });
-        setAnchorElNav(null);
+        if (location.pathname !== '/home' && ancorsName.includes(e.currentTarget?.name)) {
+            navigate('/home');
+            setTemporaryAncor(e.currentTarget.name);
+            setAnchorElNav(null);
+        } else {
+            dispatch({ type: "SCROLL_TO", payload: e.currentTarget.name });
+            setAnchorElNav(null);
+        }
     };
 
-    const handleCloseServiceMenu = () => {
-        setAnchorElService(null);
-    };
+    useEffect(() => {
+        if (location.pathname === '/home' && temporaryAncor !== null) {
+            dispatch({ type: "SCROLL_TO", payload: temporaryAncor });
+        } else {
+            dispatch({ type: "CLEAR_SCROLL" });
+            setTemporaryAncor(null);
+        }
+    }, [location]);
 
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ position: 'absolute', top: '0', left: '0', display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ position: 'absolute', top: '0', left: '0', display: { xs: 'none', md: 'flex', cursor: 'pointer' } }} onClick={() => navigate('/home')}>
                         <img alt="Logo" src={Logo} style={{ width: '120px', zIndex: '1' }} /> {/* ICON TABLE*/}
                     </Box>
 
@@ -121,7 +135,7 @@ const Header = () => {
                         </Menu>
                     </Box>
 
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, justifyContent: 'center', marginLeft: '15%' }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, justifyContent: 'center', marginLeft: '15%', cursor: 'pointer' }} onClick={() => navigate('/home')}>
                         <img alt="Logo" src={Logo} style={{ width: '80px', margin: '6px 0 0 0' }} />    {/* MOBILE ICON MIDDLE*/}
                     </Box>
 
@@ -137,12 +151,12 @@ const Header = () => {
                             </Button>
                         ))}
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <Services handleCloseServiceMenu={handleCloseServiceMenu} handleOpenServiceMenu={handleOpenServiceMenu} anchorElService={anchorElService} />
+                            <Services />
                         </Box>
                     </Box>
 
                     <Box sx={{ display: { xs: 'flex', md: 'none', marginRight: '20px' } }}>
-                        <Services handleCloseServiceMenu={handleCloseServiceMenu} handleOpenServiceMenu={handleOpenServiceMenu} anchorElService={anchorElService} />
+                        <Services />
                     </Box>
 
                     <Box sx={{ flexGrow: '0', display: { xs: 'none', md: 'flex' }, flexDirection: 'column' }}>    {/* RIGHT TABLE CONTACTS*/}

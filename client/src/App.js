@@ -7,6 +7,7 @@ import Header from "./Components/Header/Header";
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
+import InfoPage from "./Pages/InfoPage";
 
 const theme = createTheme({
   palette: {
@@ -38,8 +39,8 @@ const App = () => {
             <Routes>
               < Route path="/" exact element={<Navigate to="/home" replace />} />
               < Route path="/home" exact element={<HomePage />} />
-              {/* < Route path="/posts/search" exact element={<Home />} />
-            < Route path="/posts/:id" element={<PostDetails />} />
+              < Route path="/info" exact element={<InfoPage />} />
+              {/* < Route path="/posts/:id" element={<PostDetails />} />
             < Route path="/auth" exact element={<Auth />} />
             < Route path="/auth/:id" exact element={<Profile />} />
             < Route path="/user/:id" exact element={<Profile />} />
