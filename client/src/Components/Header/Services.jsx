@@ -1,96 +1,109 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import ConsaltMenu from './ConsaltMenu';
+import CreateDocMenu from './CreateDocMenu';
+import TechCustomerMenu from './TechCustomerMenu';
+import "./styles.css";
+import { useNavigate } from "react-router";
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import CustomerService from "./CustomerService"
-import Consalting from "./Consalting";
+import Typography from '@mui/material/Typography';
 
-const Services = ({ handleCloseServiceMenu, handleOpenServiceMenu, anchorElService }) => {
 
-    // open first tab
-    const [anchorElFirst, setAnchorElFirst] = React.useState(null);
+const Services = () => {
 
-    const handleOpenFirstMenu = (event) => {
-        if (anchorElFirst !== null) return;
-        setAnchorElFirst(event.currentTarget);
-    };
-    const handleCloseFirstMenu = () => {
-        handleCloseServiceMenu();
-        setAnchorElFirst(null);
-    };
+    const navigate = useNavigate();
 
-    // open second tab
-    const [anchorElSecond, setAnchorElSecond] = React.useState(null);
+    const [openDropMenu, setOpenDropMenu] = useState(false);
+    const [menu, setMenu] = useState('');
 
-    const handleOpenSecondMenu = (event) => {
-        if (anchorElSecond !== null) return;
-        setAnchorElSecond(event.currentTarget);
-    };
-    const handleCloseSecondMenu = () => {
-        handleCloseServiceMenu();
-        setAnchorElSecond(null);
+    const openMenu = () => {
+        setOpenDropMenu(!openDropMenu)
+    }
+
+    const onMouseEnter = (text) => {
+        setMenu(text);
     };
 
-    //open third tab
-   /*  const [anchorElThird, setAnchorElThird] = React.useState(null);
-
-    const handleOpenThirdMenu = (event) => {
-        if (anchorElThird !== null) return;
-        setAnchorElThird(event.currentTarget);
+    const onMouseLeave = () => {
+        setMenu('');
     };
-    const handleCloseThirdMenu = () => {
-        handleCloseServiceMenu();
-        setAnchorElThird(null);
-    }; */
+
+    // listen click outside dropmenu
+    let ref = useRef();
+
+    const handleClick = (e) => {
+        if (openDropMenu && !ref.current.contains(e.target))
+            setOpenDropMenu(false);
+        else {
+            return;
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", handleClick);
+
+        return function () {
+            document.removeEventListener("click", handleClick);
+        };
+    });
+    // END listen click outside dropmenu
+
+    // navigate to information page
+    const goToInfoPage = () => {
+        navigate('/info');
+        setOpenDropMenu(false);
+        setMenu('');
+    }
+    // END navigate to information page
 
     return (
-        <Box>
-            <Button onClick={handleOpenServiceMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}> {/* SERVICES TABLE */}
+        <Box ref={ref} sx={{ position: 'relative' }}>
+            <Button onClick={openMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}> {/* SERVICES TABLE */}
                 услуги
                 <ArrowDropDown color='secondary' sx={{ width: '40px' }} />
             </Button>
-            <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElService}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={Boolean(anchorElService)}
-                onClose={handleCloseServiceMenu}
-            >
-                <MenuItem onClick={handleOpenFirstMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center">Услуги технического заказчика</Typography>
-                    <ChevronRightIcon color="secondary" />
-                    <CustomerService anchorElFirst={anchorElFirst} handleCloseFirstMenu={handleCloseFirstMenu} />
-                </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu}>
-                    <Typography textAlign="center" >Независимая экспертиза сметной документации</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleOpenSecondMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center" >Сметный консалтинг</Typography>
-                    <ChevronRightIcon color="secondary" />
-                    <Consalting anchorElSecond={anchorElSecond} handleCloseSecondMenu={handleCloseSecondMenu}/>
-                </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu}>
-                    <Typography textAlign="center" >Финансово-технический аудит</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseServiceMenu} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography textAlign="center" >Составление сметной документации</Typography>
-                    <ChevronRightIcon color="secondary" />
-                </MenuItem>
-            </Menu>
+            {openDropMenu ?
+                <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', bottom: '-285px', left: '-120px', background: 'white', zIndex: '10', width: '240px', padding: '10px' }}>
+                    <Box onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} className='menuItem' onClick={goToInfoPage}>
+                        <Typography color="primary" className="menuItemText">Услуги технического заказчика</Typography>
+                        <ChevronRightIcon color="secondary" />
+                        {menu === 'services' ?
+                            <TechCustomerMenu onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} menu={menu} />
+                            :
+                            null
+                        }
+                    </Box>
+                    <Box onClick={goToInfoPage}>
+                        <Typography color="primary" className='menuItem'>Независимая экспертиза сметной документации</Typography>
+                    </Box>
+                    <Box onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} onClick={goToInfoPage} className='menuItem'>
+                        <Typography color="primary" className='menuItemText'>Сметный консалтинг</Typography>
+                        <ChevronRightIcon color="secondary" />
+                        {menu === 'consalt' ?
+                            <ConsaltMenu onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} menu={menu} />
+                            :
+                            null
+                        }
+                    </Box>
+                    <Box onClick={goToInfoPage}>
+                        <Typography color="primary" className='menuItem'>Финансово-технический аудит</Typography>
+                    </Box>
+                    <Box onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} onClick={goToInfoPage} className='menuItem'>
+                        <Typography color="primary" className='menuItemText'>Составление сметной документации</Typography>
+                        <ChevronRightIcon color="secondary" />
+                        {menu === 'documentation' ?
+                            <CreateDocMenu onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} menu={menu} />
+                            :
+                            null
+                        }
+                    </Box>
+                </Box>
+                :
+                null
+            }
         </Box>
     )
 }

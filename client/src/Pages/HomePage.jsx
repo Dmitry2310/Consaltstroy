@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import Cover from './../assets/Images/Cover.png';
 import HandsIcon from './../assets/Images/HandsIcon.png';
 import SignIcon from './../assets/Images/SignIcon.png';
@@ -158,6 +159,7 @@ const HomePage = () => {
     const homeOnClickRef = useRef(null);
     const aboutOnClickRef = useRef(null);
     const contactOnClickRef = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (ref === 'contact') {
