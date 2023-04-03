@@ -150,9 +150,14 @@ const Header = () => {
                                 {page.page}
                             </Button>
                         ))}
-                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <Services />
-                        </Box>
+                        {location.pathname !== '/info'
+                            ?
+                            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                <Services />
+                            </Box>
+                            :
+                            null
+                        }
                     </Box>
 
                     <Box sx={{ display: { xs: 'flex', md: 'none', marginRight: '20px' } }}>

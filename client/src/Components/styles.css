@@ -2,10 +2,19 @@
     padding: 10px 10px 5px 20px;
 }
 
+.accordionDetails:hover {
+    text-decoration: underline;
+}
+
 .typographyText {
     color: #054982;
     cursor: pointer; 
-    border-top: 1px solid silver;
+}
+
+.typographyTextUnderline {
+    text-decoration: underline;
+    color: #054982;
+    cursor: pointer;
 }
 
 .summaryBackground {
