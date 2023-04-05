@@ -12,9 +12,8 @@ const ConsaltMenu = ({ onMouseLeave, onMouseEnter }) => {
         dispatch({ type: 'GO_TO_PARGRAF', payload: paragraf });
     };
 
-
     return (
-        <Box onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '17px', background: 'white', right: '-255px', width: '240px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
+        <Box onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '0', background: 'white', right: '-240px', width: '240px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
             <Box className='menuItemConsalt' onClick={() => goToParagraf('paragraf3.1')}>
                 <Typography className="menuItemText" color="primary">Сметный консалтинг подрядчикам, субподрядчикам и ИП</Typography>
             </Box>

@@ -1,12 +1,11 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "../Components/Accordion";
 import Footer from "../Components/Footer";
+import InfoBlock from "../Components/InfoBlock";
 
 const InfoPage = () => {
-
-    
 
     return (
         <>
@@ -16,7 +15,7 @@ const InfoPage = () => {
                         <NavBar />
                     </Grid>
                     <Grid item xs={9}>
-                        some text
+                        <InfoBlock />
                     </Grid>
                 </Grid>
             </Container>

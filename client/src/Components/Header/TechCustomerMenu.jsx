@@ -13,7 +13,7 @@ const TechCustomerMenu = ({onMouseLeave, onMouseEnter}) => {
     };
 
     return (
-        <Box onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '30px', background: 'white', right: '-275px', width: '260px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
+        <Box onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '0', background: 'white', right: '-255px', width: '260px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
             <Box  className='menuItemConsalt' onClick={() => goToParagraf( 'paragraf1.1')}>
                 <Typography className="menuItemText" color="primary">Оформление земельно-правовых отношений</Typography>
             </Box>

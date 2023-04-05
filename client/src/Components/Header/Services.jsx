@@ -37,7 +37,7 @@ const Services = () => {
     let ref = useRef();
 
     const handleClick = (e) => {
-        
+
         if (openDropMenu && !ref.current.contains(e.target))
             setOpenDropMenu(false);
         else {
@@ -57,7 +57,7 @@ const Services = () => {
     // navigate to information page
     const goToInfoPage = (page) => {
         navigate('/info');
-        dispatch({type: 'GO_TO_PAGE', payload: page});
+        dispatch({ type: 'GO_TO_PAGE', payload: page });
         setOpenDropMenu(false);
         setMenu('');
     }

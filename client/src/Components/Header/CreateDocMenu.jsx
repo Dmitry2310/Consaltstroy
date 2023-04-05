@@ -13,7 +13,7 @@ const CreateDocMenu = ({ onMouseLeave, onMouseEnter }) => {
     };
 
     return (
-        <Box onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '30px', background: 'white', right: '-255px', width: '240px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
+        <Box onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} sx={{ position: 'absolute', top: '0', background: 'white', right: '-240px', width: '240px', padding: '10px', zIndex: '20', border: '0.5px solid #FE793D' }}>
             <Box className='menuItemConsalt' onClick={() => goToParagraf('paragraf5.1')}>
                 <Typography className="menuItemText" color="primary">Разработка локальных, объектных смет, сводного сметного расчета</Typography>
             </Box>
@@ -28,6 +28,6 @@ const CreateDocMenu = ({ onMouseLeave, onMouseEnter }) => {
             </Box>
         </Box>
     )
-}
+};
 
 export default CreateDocMenu;

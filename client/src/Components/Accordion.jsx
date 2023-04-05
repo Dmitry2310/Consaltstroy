@@ -22,10 +22,11 @@ const NavBar = () => {
 
     const panels = ['panel1', 'panel2', 'panel3', 'panel4', 'panel5'];
 
-    const handleChange = (panel) => (event, isExpanded = true) => {
+    const handleChange = (panel, paragraf) => (event, isExpanded = true) => {
         setExpanded(isExpanded ? panel : false);
         if (isExpanded) {
             dispatch({ type: 'GO_TO_PAGE', payload: panel });
+            dispatch({ type: 'GO_TO_PARGRAF', payload: paragraf });
         } /* else {
             dispatch({ type: 'CLEAR_PAGE' });
         } */
@@ -48,7 +49,7 @@ const NavBar = () => {
 
     return (
         <div>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1', 'paragraf1.0')}>
                 <AccordionSummary
                     expandIcon={expanded === 'panel1' ? <ChevronRightIcon color="secondary" /> : <ChevronRightIcon color="primary" />}
                     aria-controls="panel1bh-content"
@@ -58,6 +59,11 @@ const NavBar = () => {
                 >
                     <Typography color={expanded === 'panel1' ? 'white' : '#054982'}>Услуги технического заказчика</Typography>
                 </AccordionSummary>
+                <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf1.0')}>
+                    <Typography className={paragraf !== 'paragraf1.0' ? "typographyText" : 'typographyTextUnderline'}>
+                        Услуги технического заказчика
+                    </Typography>
+                </AccordionDetails>
                 <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf1.1')}>
                     <Typography className={paragraf !== 'paragraf1.1' ? "typographyText" : 'typographyTextUnderline'}>
                         Оформление земельно-правовых отношений
@@ -89,7 +95,7 @@ const NavBar = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2', 'paragraf2.0')}>
                 <AccordionSummary
                     expandIcon={expanded === 'panel2' ? <ChevronRightIcon color="secondary" /> : <ChevronRightIcon color="primary" />}
                     aria-controls="panel2bh-content"
@@ -100,8 +106,13 @@ const NavBar = () => {
                         Независимая экспертиза сметной документации
                     </Typography>
                 </AccordionSummary>
+                <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf2.0')}>
+                    <Typography className={paragraf !== 'paragraf2.0' ? "typographyText" : 'typographyTextUnderline'}>
+                        Независимая экспертиза сметной документации
+                    </Typography>
+                </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3', 'paragraf3.0')}>
                 <AccordionSummary
                     expandIcon={expanded === 'panel3' ? <ChevronRightIcon color="secondary" /> : <ChevronRightIcon color="primary" />}
                     aria-controls="panel3bh-content"
@@ -112,6 +123,11 @@ const NavBar = () => {
                         Сметный консалтинг
                     </Typography>
                 </AccordionSummary>
+                <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf3.0')}>
+                    <Typography className={paragraf !== 'paragraf3.0' ? "typographyText" : 'typographyTextUnderline'}>
+                        Сметный консалтинг
+                    </Typography>
+                </AccordionDetails>
                 <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf3.1')}>
                     <Typography className={paragraf !== 'paragraf3.1' ? "typographyText" : 'typographyTextUnderline'}>
                         Сметный консалтинг подрядчикам, субподрядчикам и ИП
@@ -133,7 +149,7 @@ const NavBar = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+            <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4', 'paragraf4.0')}>
                 <AccordionSummary
                     expandIcon={expanded === 'panel4' ? <ChevronRightIcon color="secondary" /> : <ChevronRightIcon color="primary" />}
                     aria-controls="panel4bh-content"
@@ -142,8 +158,13 @@ const NavBar = () => {
                 >
                     <Typography color={expanded === 'panel4' ? 'white' : '#054982'}>Финансово-технический аудит</Typography>
                 </AccordionSummary>
+                <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf4.0')}>
+                    <Typography className={paragraf !== 'paragraf4.0' ? "typographyText" : 'typographyTextUnderline'}>
+                        Финансово-технический аудит
+                    </Typography>
+                </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+            <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5', 'paragraf5.0')}>
                 <AccordionSummary
                     expandIcon={expanded === 'panel5' ? <ChevronRightIcon color="secondary" /> : <ChevronRightIcon color="primary" />}
                     aria-controls="panel5bh-content"
@@ -152,6 +173,11 @@ const NavBar = () => {
                 >
                     <Typography color={expanded === 'panel5' ? 'white' : '#054982'}>Составление сметной документации</Typography>
                 </AccordionSummary>
+                <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf5.0')}>
+                    <Typography className={paragraf !== 'paragraf5.0' ? "typographyText" : 'typographyTextUnderline'}>
+                        Составление сметной документации
+                    </Typography>
+                </AccordionDetails>
                 <AccordionDetails className="accordionDetails" onClick={() => goToParagraf('paragraf5.1')}>
                     <Typography className={paragraf !== 'paragraf5.1' ? "typographyText" : 'typographyTextUnderline'}>
                         Разработка локальных, объектных смет, сводного сметного расчета
