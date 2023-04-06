@@ -35,10 +35,15 @@ const Header = () => {
         {
             page: 'Контакты',
             name: 'contact'
-        }];
+        },
+        {
+            page: 'Новости',
+            name: 'news'
+        },
+    ];
 
     const ancorsName = ['home', 'about', 'contact'];
-
+    
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [temporaryAncor, setTemporaryAncor] = useState(null);
 
@@ -47,6 +52,11 @@ const Header = () => {
     };
 
     const handleCloseNavMenu = (e) => {
+        if (e.currentTarget?.name === 'news') {
+            navigate('/news');
+            setAnchorElNav(null);
+            return;
+        }
         if (location.pathname !== '/home' && ancorsName.includes(e.currentTarget?.name)) {
             navigate('/home');
             setTemporaryAncor(e.currentTarget.name);
@@ -145,7 +155,7 @@ const Header = () => {
                                 key={page.page}
                                 name={page.name}
                                 onClick={(e) => handleCloseNavMenu(e)}
-                                sx={{ color: 'white', display: 'block', marginLeft: '7%' }}
+                                sx={{ color: 'white', display: 'block', marginLeft: { sm: '4%', lg: '7%' } }}
                             >
                                 {page.page}
                             </Button>
@@ -164,7 +174,7 @@ const Header = () => {
                         <Services />
                     </Box>
 
-                    <Box sx={{ flexGrow: '0', display: { xs: 'none', md: 'flex' }, flexDirection: 'column' }}>    {/* RIGHT TABLE CONTACTS*/}
+                    <Box sx={{ flexGrow: '0', display: { xs: 'none', lg: 'flex' }, flexDirection: 'column' }}>    {/* RIGHT TABLE CONTACTS*/}
                         <Box sx={{ display: 'flex', gap: '5px', }}>
                             <LocalPhoneIcon sx={{ color: 'white', width: '40px' }} />
                             <Typography variant="body2"> + 7 (999)999-99-99 </Typography>
@@ -176,7 +186,7 @@ const Header = () => {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     )
 
 }

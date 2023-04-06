@@ -156,7 +156,6 @@ const HomePage = () => {
 
     const ref = useSelector((state) => state.manage.ref)
 
-    const homeOnClickRef = useRef(null);
     const aboutOnClickRef = useRef(null);
     const contactOnClickRef = useRef(null);
     const dispatch = useDispatch();
@@ -164,9 +163,6 @@ const HomePage = () => {
     useEffect(() => {
         if (ref === 'contact') {
             scrollEffect(contactOnClickRef);
-        }
-        if (ref === 'home') {
-            scrollEffect(homeOnClickRef);
         }
         if (ref === 'about') {
             scrollEffect(aboutOnClickRef);
@@ -178,7 +174,7 @@ const HomePage = () => {
             behavior: 'smooth',
             block: 'start',
         });
-    }
+    };
 
     return (
         <Container maxWidth="xl">
@@ -193,7 +189,6 @@ const HomePage = () => {
                                     Консалтэкспертстрой
                                 </Box>
                             </Typography>
-                            {/* <Box sx={{ border: { xs: '1px solid white', md: '2px solid white' }, width: { xs: '275px', sm: '333px', md: '655px' }, position: 'absolute', bottom: '26%' }}></Box> */}
                         </Grid>
                         <Grid container sx={{ display: 'flex', justifyContent: 'space-between' }} >
                             <Grid item xs={9} md={4} lg={4} sx={{ padding: '0 3%' }}>
@@ -225,7 +220,7 @@ const HomePage = () => {
                     </Grid>
                 </Box>
             </Box>
-            <Box ref={homeOnClickRef} sx={{ padding: { xs: '30px 0 30px 0', md: '60px 0 60px 0' } }}>
+            <Box sx={{ padding: { xs: '30px 0 30px 0', md: '60px 0 60px 0' } }}>
                 <Grid container gap={1} sx={{ justifyContent: 'space-around' }}>
                     <Grid item xs={12} md={5} lg={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         {welcomeBlockButtons.map((but) => {

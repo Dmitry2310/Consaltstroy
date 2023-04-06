@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import HomePage from "./Pages/HomePage";
 import ScrollToTop from "./assets/ScrollToTop";
 import Header from "./Components/Header/Header";
+import News from "./Pages/News";
 
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
@@ -40,6 +41,7 @@ const App = () => {
               < Route path="/" exact element={<Navigate to="/home" replace />} />
               < Route path="/home" exact element={<HomePage />} />
               < Route path="/info" exact element={<InfoPage />} />
+              < Route path="/news" exact element={<News />} />
               {/* < Route path="/posts/:id" element={<PostDetails />} />
             < Route path="/auth" exact element={<Auth />} />
             < Route path="/auth/:id" exact element={<Profile />} />
