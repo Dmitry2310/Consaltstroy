@@ -1,9 +1,12 @@
 {
   "name": "consalt",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "build": "npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,10 +14,22 @@
     "url": "git+https://github.com/Dmitry2310/Consaltstroy.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dmitry Avgustinovich",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Dmitry2310/Consaltstroy/issues"
   },
-  "homepage": "https://github.com/Dmitry2310/Consaltstroy#readme"
+  "homepage": "https://github.com/Dmitry2310/Consaltstroy#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22"
+  }
 }

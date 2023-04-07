@@ -39,13 +39,13 @@ const InfoBlock = () => {
 
     return (
         <>
-            <Grid container gap={1} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Grid container gap={1} sx={{ display: 'flex', justifyContent: 'space-around' }}>
                 <Grid item xs={12}>
                     <Typography sx={{ fontFamily: 'Montserrat', fontStyle: 'normal', fontWeight: '800', fontSize: '17px', color: '#2B3F74', marginBottom: '25px',paddingTop: {xs: '20px'} }}>
                         {info.title}
                     </Typography>
                 </Grid>
-                <Grid item xl={3.6} md={12} xs={12} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: {xs: 'center', sm: 'flex-start'} }}>
+                <Grid item lg={2.8} md={12} xs={12} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: {xs: 'center', sm: 'flex-start'} }}>
                     <img src={info.image}></img>
                     <Button variant="contained" color="secondary" sx={{marginTop: '40px', width: {xs: '80%', sm: '50%', md: '80%'},marginBottom: {xs: '20px'}}}>
                         <Typography color= 'white'>
@@ -53,7 +53,7 @@ const InfoBlock = () => {
                         </Typography>
                     </Button>
                 </Grid>
-                <Grid item xl={8} md={12}>{info.textRight}</Grid>
+                <Grid item lg={8} md={12}>{info.textRight}</Grid>
                 <Grid item xs={12}>{info.textBottom}</Grid>
             </Grid>
         </>

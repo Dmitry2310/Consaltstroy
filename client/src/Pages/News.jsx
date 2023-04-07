@@ -1,5 +1,8 @@
 import React from "react";
 import Footer from "../Components/Footer";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
 
 import { Container } from "@mui/system";
 import { Box, Card, CardMedia } from "@mui/material";
@@ -32,16 +35,38 @@ const News = () => {
         }
     ];
 
+    const [isToken, setIsToken] = useState(false);
+    const token = useSelector((state) => state.auth.profile?.token);
+
+    useEffect(() => {
+        if (token) {
+            setIsToken(true)
+        } else {
+            setIsToken(false)
+        }
+    }, [token]);
+
     return (
         <>
             <Container maxWidth="xl" sx={{ flexGrow: '1' }}>
-                <Typography sx={{ width: '100%', textAlign: 'center', color: '#054982', fontSize: '24px', fontWeight: '600', paddingTop: '30px' }}>
-                    Новости
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography sx={{ width: '100%', textAlign: 'center', color: '#054982', fontSize: '24px', fontWeight: '600', paddingTop: '30px' }}>
+                        Новости
+                    </Typography>
+                    {isToken
+                        ?
+                        <Button variant="contained" color="secondary" size="small" sx={{}}>
+                            <Typography color="white">Создать</Typography>
+                        </Button>
+                        :
+                        null
+                    }
+                </Box>
+
                 <Grid container sx={{ paddingTop: '40px' }} gap={2}>
                     {news.map((item) => {
                         return (
-                            <Grid item xs={12} md={8}>
+                            <Grid item key={item.title} xs={12} md={8}>
                                 <Card elevation={3} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
                                     <CardMedia component="img" image={item.coverImage} sx={{ width: { xl: '50%', md: '50%', sm: '100%' }, padding: '10px', minHeight: '200px', maxHeight: '270px', justifyContent: 'center', alignItems: 'center', }} />
                                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
@@ -52,7 +77,7 @@ const News = () => {
                                             </Typography>
                                         </CardContent>
                                         <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', flexGrow: '0', padding: '20px' }}>
-                                            <Typography sx={{opacity: '0.8', color: '#054982'}}>{item.time}</Typography>
+                                            <Typography sx={{ opacity: '0.8', color: '#054982' }}>{item.time}</Typography>
                                             <Button size="large" color="secondary" variant="contained" sx={{ marginRight: '50px' }}/* disabled={!user?.result} */ /* onClick={handleLike} */>
                                                 <Typography color='white'>Подробнее</Typography>
                                             </Button>

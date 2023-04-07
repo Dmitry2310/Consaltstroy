@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from "./Pages/HomePage";
 import ScrollToTop from "./assets/ScrollToTop";
 import Header from "./Components/Header/Header";
 import News from "./Pages/News";
+import { useDispatch } from "react-redux";
 
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import InfoPage from "./Pages/InfoPage";
+import NewsDetails from "./Pages/NewsDetails";
+import Login from "./Pages/Login";
+import { setUser } from "./actions/auth";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +35,15 @@ const theme = createTheme({
 
 const App = () => {
 
+  const dispatch = useDispatch();
+  const profile = JSON.parse(localStorage.getItem('profile'));
+
+  useEffect(() => {
+    if (profile) {
+      dispatch(setUser(profile));
+    };
+  }, []);
+
   return (
     < Router>
       <ThemeProvider theme={theme}>
@@ -42,8 +55,9 @@ const App = () => {
               < Route path="/home" exact element={<HomePage />} />
               < Route path="/info" exact element={<InfoPage />} />
               < Route path="/news" exact element={<News />} />
-              {/* < Route path="/posts/:id" element={<PostDetails />} />
-            < Route path="/auth" exact element={<Auth />} />
+              < Route path="/news/:id" exact element={<NewsDetails />} />
+              < Route path="/login" exact element={<Login />} />
+             {/*< Route path="/auth" exact element={<Auth />} />
             < Route path="/auth/:id" exact element={<Profile />} />
             < Route path="/user/:id" exact element={<Profile />} />
             < Route path="/posts/create" exact element={<CreatePost />} /> */}
