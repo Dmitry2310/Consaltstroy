@@ -13,8 +13,10 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const createPost = (post) => API.post('/posts', post);
-export const updatePost = (id, postData) => API.post(`/posts/${id}`, postData);
-export const deletePost = (id) => API.delete(`/posts/${id}`);
+
+export const updateNews = (id, postData) => API.post(`/news/${id}`, postData);
+export const createNews = (post) => API.post('/news', post);
+export const deleteNews = (id) => API.delete(`/news/${id}`);
+export const fetchAllNews = (page) => API.get(`/news?page=${page}`);
 
 export const signIn = (formData) => API.post('/user/signin', formData);

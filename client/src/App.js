@@ -12,6 +12,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import InfoPage from "./Pages/InfoPage";
 import NewsDetails from "./Pages/NewsDetails";
 import Login from "./Pages/Login";
+import CreateNews from "./Pages/CreateNews";
 import { setUser } from "./actions/auth";
 
 const theme = createTheme({
@@ -59,8 +60,8 @@ const App = () => {
               < Route path="/login" exact element={<Login />} />
              {/*< Route path="/auth" exact element={<Auth />} />
             < Route path="/auth/:id" exact element={<Profile />} />
-            < Route path="/user/:id" exact element={<Profile />} />
-            < Route path="/posts/create" exact element={<CreatePost />} /> */}
+            < Route path="/user/:id" exact element={<Profile />} />*/}
+            < Route path="/news/create" exact element={<CreateNews />} /> 
             </Routes>
           </ScrollToTop>
           {/* <Footer /> */}

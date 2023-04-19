@@ -3,40 +3,49 @@ import Footer from "../Components/Footer";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
+import { getAllNews } from "./../actions/news";
+import { deleteNews } from "./../actions/news";
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+import ModalWindow from "./../Components/ModalWindow";
 
 import { Container } from "@mui/system";
 import { Box, Card, CardMedia } from "@mui/material";
 import logo from "./../assets/Images/Logo.png";
 import CardContent from '@mui/material/CardContent';
 import { Grid, Typography } from "@mui/material";
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import { CircularProgress } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Paper from '@mui/material/Paper';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+};
 
 const News = () => {
 
-    const news = [
-        {
-            title: 'Поднятие писи с помощью крана',
-            text: 'Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)',
-            time: '12.03.2023',
-            coverImage: logo
-        },
-        {
-            title: 'Складывание сисек в отвал',
-            text: 'Теперь рассмотрим ситуацию, в которой между артиклем и fbjhbe fejbff bejfbns nc dn nn sn  связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)',
-            time: '08.04.2023',
-            coverImage: logo
-        },
-        {
-            title: 'Нет места голубым в этом мире!',
-            text: 'Теперь рассмотрим ситуацию, в которой между артиклем и связаsd sdsdwew wjuedwe wdeuiedw dwdwd нным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем).Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)Теперь рассмотрим ситуацию, в которой между артиклем и связанным с ним существительным расположено одно или несколько дополнительных частей речи. Если таким словом является существительное, то это сразу говорит нам о наличии ее составной группы (левая граница которой как бы помечена артиклем)',
-            time: '03.10.2023',
-            coverImage: logo
-        }
-    ];
-
     const [isToken, setIsToken] = useState(false);
     const token = useSelector((state) => state.auth.profile?.token);
+    const isLoading = useSelector((state) => state.news.isLoading);
+    const news = useSelector((state) => state.news.news);
+    const query = useQuery();
+    const page = query.get('page') || 1;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [deleteId, setDeleteId] = useState('');
+    //Open MODAL WINDOW
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    //END Open MODAL WINDOW
+
+    const openModalWindow = (id) => {
+        setDeleteId(id);
+        setOpen(true);
+    };
 
     useEffect(() => {
         if (token) {
@@ -45,6 +54,30 @@ const News = () => {
             setIsToken(false)
         }
     }, [token]);
+
+    useEffect(() => {
+        dispatch(getAllNews(page));
+    }, [page, dispatch]);
+
+    if (isLoading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '600px' }}>
+                <CircularProgress size="5em" />
+            </div>
+        )
+    };
+
+    const deleteThisNews = (id) => {
+        dispatch(deleteNews(id));
+        dispatch(getAllNews(page));
+        handleClose();
+    };
+
+    if (!news.length) return (
+        <Box sx={{ width: '100%', height: '100%', minHeight: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: '0.6' }}>
+            Новостей пока нет ...
+        </Box>
+    );
 
     return (
         <>
@@ -55,40 +88,55 @@ const News = () => {
                     </Typography>
                     {isToken
                         ?
-                        <Button variant="contained" color="secondary" size="small" sx={{}}>
+                        <Button variant="contained" color="secondary" size="small" onClick={() => navigate('/news/create')}>
                             <Typography color="white">Создать</Typography>
                         </Button>
                         :
                         null
                     }
                 </Box>
-
-                <Grid container sx={{ paddingTop: '40px' }} gap={2}>
+                <Grid container sx={{ paddingTop: '40px', display: 'flex', justifyContent: 'center' }} gap={4}>
                     {news.map((item) => {
                         return (
-                            <Grid item key={item.title} xs={12} md={8}>
-                                <Card elevation={3} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
-                                    <CardMedia component="img" image={item.coverImage} sx={{ width: { xl: '50%', md: '50%', sm: '100%' }, padding: '10px', minHeight: '200px', maxHeight: '270px', justifyContent: 'center', alignItems: 'center', }} />
-                                    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
+                            <Grid item key={item.title} xs={12} md={10} lg={10}>
+                                <Paper elevation={3} sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-around', alignItems: 'center' }}>
+                                    <ModalWindow handleOpen={handleOpen} handleClose={handleClose} open={open} newsId={deleteId} deleteThisNews={deleteThisNews} />
+                                    <Box sx={{ width: { xs: '100%' , sm: '30%'} }}>
+                                        <Card elevation={1}>
+                                            <CardMedia
+                                                component="img"
+                                                alt={'picture'}
+                                                height= "300px"
+                                                image={item.selectedFile ? item.selectedFile : logo}
+                                            />
+                                        </Card>
+                                    </Box>
+                                    <Box sx={{ width: { xs: '90%' , sm: '70%'}, display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
                                         <CardContent sx={{ alignSelf: 'start', flexGrow: '2', padding: '20px' }} >
                                             <Typography variant="h6" color='primary' gutterBottom> {item.title}</Typography>
                                             <Typography variant="body2" component="p" sx={{ opacity: '0.7' }}>
-                                                {item.text.split(' ').splice(0, 60).join(' ')}...
+                                                {item.message?.split(' ').splice(0, 60).join(' ')}...
                                             </Typography>
                                         </CardContent>
-                                        <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', flexGrow: '0', padding: '20px' }}>
-                                            <Typography sx={{ opacity: '0.8', color: '#054982' }}>{item.time}</Typography>
-                                            <Button size="large" color="secondary" variant="contained" sx={{ marginRight: '50px' }}/* disabled={!user?.result} */ /* onClick={handleLike} */>
+                                        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', flexGrow: '0', padding: '20px' }}>
+                                            <Box sx={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                                                <Typography sx={{ opacity: '0.8', color: '#054982' }}>{moment(item.updatedAt).format("D.MM.YYYY")}</Typography>
+                                                {isToken ?
+                                                    <>
+                                                        <Button color="error" size="small" variant="text" onClick={() => openModalWindow(item._id)}>
+                                                            <DeleteIcon fontSize="small" /> Удалить
+                                                        </Button>
+                                                    </>
+                                                    :
+                                                    null
+                                                }
+                                            </Box>
+                                            <Button size="large" color="secondary" variant="contained" sx={{marginRight: {xs: '20px', sm: '50px'}}}  onClick={() => navigate(`/news/${item._id}`)} >
                                                 <Typography color='white'>Подробнее</Typography>
                                             </Button>
-                                            {/* {(user?.result?.googleId === post?.creatorId || user?.result?._id === post?.creatorId) && (
-                                            <Button size="small" color="secondary" onClick={handleOpen}>
-                                                <DeleteIcon fontSize="small" /> &nbsp; {t("Delete")}
-                                            </Button>
-                                        )} */}
-                                        </CardActions>
+                                        </Box>
                                     </Box>
-                                </Card>
+                                </Paper>
                             </Grid>
                         )
                     })}
