@@ -8,10 +8,10 @@ export const signIn = async (req, res) => {
     try {
         const existingUser = await User.findOne({ name: name });
 
-        if (!existingUser) return res.status(400).json({ message: "User doesn't exist." });
+        if (!existingUser) return res.status(400).json({ message: "Такого пользователя нет." });
 
         const isPasswordcorrect = await bcrypt.compare(password, existingUser.password);
-        if (!isPasswordcorrect) return res.status(400).json({ message: "Invalid password or email" });
+        if (!isPasswordcorrect) return res.status(400).json({ message: "Неверный логин или пароль." });
 
         const token = jwt.sign({ name: existingUser.name, id: existingUser._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
         
@@ -35,8 +35,8 @@ export const signUp = async (req, res) => {
 
         const token = jwt.sign({ id: result._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 
-        res.status(201).json({ result, token, message: 'register success' });
+        res.status(201).json({ result, token, message: 'Вы вошли успешно.' });
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong." });
+        res.status(500).json({ message: "Какая то ерунда на сервере..." });
     }
 };

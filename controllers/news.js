@@ -7,7 +7,7 @@ export const createNews = async (req, res) => {
     const news = req.body;
 
     try {
-        if (!req.userId) return res.json({ message: 'Unauthenticated.' });
+        if (!req.userId) return res.json({ message: 'Вы не в системе...' });
         else {
             const newNews = new News({
                 title: news.title,
@@ -35,7 +35,7 @@ export const updateNews = async (req, res) => {
     };
     
     try {
-        if (!req.userId) return res.json({ message: 'Unauthenticated.' });
+        if (!req.userId) return res.json({ message: 'Вы не в системе...' });
         else {
             if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No news with id: ${id}`);
             const updatedNews = await News.findByIdAndUpdate(id, newBody, { new: true });
@@ -77,11 +77,11 @@ export const deleteNews = async (req, res) => {
 
     const { id } = req.params;
     console.log(id)
-    if (!req.userId) return res.json({ message: 'Unauthenticated.' });
+    if (!req.userId) return res.json({ message: 'Вы не в системе...' });
     else {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No news with this id');
 
         await News.findByIdAndRemove(id);
-        res.json({ message: "Post deleted successfully" });
+        res.json({ message: "Удаление просшло успешно." });
     }
 };

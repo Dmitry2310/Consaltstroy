@@ -5,6 +5,8 @@ import ScrollToTop from "./assets/ScrollToTop";
 import Header from "./Components/Header/Header";
 import News from "./Pages/News";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from "react-redux";
 
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
@@ -14,6 +16,7 @@ import NewsDetails from "./Pages/NewsDetails";
 import Login from "./Pages/Login";
 import CreateNews from "./Pages/CreateNews";
 import { setUser } from "./actions/auth";
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme({
   palette: {
@@ -45,11 +48,29 @@ const App = () => {
     };
   }, []);
 
+  const notification = useSelector((state) => state.auth.error)
+
+    useEffect(() => {
+        if (notification) {
+            toast.error(notification)
+        }
+    }, [notification]);
+
   return (
     < Router>
       <ThemeProvider theme={theme}>
         < Container maxWidth="xl" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
           <Header />
+          < ToastContainer position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light" />
           <ScrollToTop>
             <Routes>
               < Route path="/" exact element={<Navigate to="/home" replace />} />
