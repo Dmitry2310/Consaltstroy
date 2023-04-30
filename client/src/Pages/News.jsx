@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import ModalWindow from "./../Components/ModalWindow";
+import Paginate from "../Components/Paginate";
 
 import { Container } from "@mui/system";
 import { Box, Card, CardMedia } from "@mui/material";
@@ -27,6 +28,7 @@ function useQuery() {
 
 const News = () => {
 
+    const numberOfPages = useSelector((state) => state.news.numberOfPages);
     const [isToken, setIsToken] = useState(false);
     const token = useSelector((state) => state.auth.profile?.token);
     const isLoading = useSelector((state) => state.news.isLoading);
@@ -101,17 +103,17 @@ const News = () => {
                             <Grid item key={item.title} xs={12} md={10} lg={10}>
                                 <Paper elevation={3} sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-around', alignItems: 'center' }}>
                                     <ModalWindow handleOpen={handleOpen} handleClose={handleClose} open={open} newsId={deleteId} deleteThisNews={deleteThisNews} />
-                                    <Box sx={{ width: { xs: '100%' , sm: '30%'} }}>
+                                    <Box sx={{ width: { xs: '100%', sm: '30%' } }}>
                                         <Card elevation={1}>
                                             <CardMedia
                                                 component="img"
                                                 alt={'picture'}
-                                                height= "300px"
+                                                height="300px"
                                                 image={item.selectedFile ? item.selectedFile : logo}
                                             />
                                         </Card>
                                     </Box>
-                                    <Box sx={{ width: { xs: '90%' , sm: '70%'}, display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
+                                    <Box sx={{ width: { xs: '90%', sm: '70%' }, display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
                                         <CardContent sx={{ alignSelf: 'start', flexGrow: '2', padding: '20px' }} >
                                             <Typography variant="h6" color='primary' gutterBottom> {item.title}</Typography>
                                             <Typography variant="body2" component="p" sx={{ opacity: '0.7' }}>
@@ -131,7 +133,7 @@ const News = () => {
                                                     null
                                                 }
                                             </Box>
-                                            <Button size="large" color="secondary" variant="contained" sx={{marginRight: {xs: '20px', sm: '50px'}}}  onClick={() => navigate(`/news/${item._id}`)} >
+                                            <Button size="large" color="secondary" variant="contained" sx={{ marginRight: { xs: '20px', sm: '50px' } }} onClick={() => navigate(`/news/${item._id}`)} >
                                                 <Typography color='white'>Подробнее</Typography>
                                             </Button>
                                         </Box>
@@ -141,6 +143,11 @@ const News = () => {
                         )
                     })}
                 </Grid>
+                {numberOfPages > 1 && (
+                        <Paper elevation={6} sx={{width: '80%', margin: '0 auto'}}>
+                            <Paginate page={page} numberOfPages={numberOfPages} />
+                        </Paper>
+                    )}
             </Container>
             <Footer />
         </>

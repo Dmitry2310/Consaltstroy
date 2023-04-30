@@ -76,7 +76,7 @@ export const getNews = async (req, res) => {
 export const deleteNews = async (req, res) => {
 
     const { id } = req.params;
-    console.log(id)
+
     if (!req.userId) return res.json({ message: 'Вы не в системе...' });
     else {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No news with this id');
