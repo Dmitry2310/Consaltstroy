@@ -50,7 +50,7 @@ const Footer = () => {
         <Box sx={{ width: '100%', height: '94px', background: '#054982', marginTop: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Button variant="contained" color={isToken ? "secondary" : "primary"} sx={{ marginLeft: '30px' }} onClick={authChange}>
                 <Typography color="white">
-                    {isToken === true ? 'Выйти' : 'Войти'}
+                    {token ? 'Выйти' : 'Войти'}
                 </Typography>
             </Button>
             <Box sx={{ width: { xs: '200px', md: '280px' } }}>

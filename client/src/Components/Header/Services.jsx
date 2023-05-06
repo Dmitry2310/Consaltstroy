@@ -85,24 +85,27 @@ const Services = () => {
                     </Box>
                     <Box onMouseEnter={() => onMouseEnter('consalt')} onMouseLeave={onMouseLeave} onClick={() => goToInfoPage('panel3')} className='menuItem'>
                         <Typography color="primary" className='menuItemText' >Сметный консалтинг</Typography>
-                        <ChevronRightIcon color="secondary" />
+                        {/* <ChevronRightIcon color="secondary" />
                         {menu === 'consalt' ?
                             <ConsaltMenu onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} menu={menu} />
                             :
                             null
-                        }
+                        } */}
                     </Box>
                     <Box onClick={() => goToInfoPage('panel4')}>
                         <Typography color="primary" className='menuItem'>Финансово-технический аудит</Typography>
                     </Box>
                     <Box onMouseEnter={() => onMouseEnter('documentation')} onMouseLeave={onMouseLeave} onClick={() => goToInfoPage('panel5')} className='menuItem'>
                         <Typography color="primary" className='menuItemText' >Составление сметной документации</Typography>
-                        <ChevronRightIcon color="secondary" />
+                        {/* <ChevronRightIcon color="secondary" />
                         {menu === 'documentation' ?
                             <CreateDocMenu onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} menu={menu} />
                             :
                             null
-                        }
+                        } */}
+                    </Box>
+                    <Box onClick={() => goToInfoPage('panel6')}>
+                        <Typography color="primary" className='menuItem'>Стоимостной инжиниринг</Typography>
                     </Box>
                 </Box>
                 :

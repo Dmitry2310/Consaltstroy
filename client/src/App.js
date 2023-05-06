@@ -48,13 +48,20 @@ const App = () => {
     };
   }, []);
 
-  const notification = useSelector((state) => state.auth.error)
+  const userNotification = useSelector((state) => state.auth.error)
+  const mailNotification = useSelector((state) => state.manage.notification)
 
     useEffect(() => {
-        if (notification) {
-            toast.error(notification)
+        if (userNotification) {
+            toast.error(userNotification)
         }
-    }, [notification]);
+    }, [userNotification]);
+
+    useEffect(() => {
+      if (mailNotification) {
+          toast.success(mailNotification)
+      }
+  }, [mailNotification]);
 
   return (
     < Router>

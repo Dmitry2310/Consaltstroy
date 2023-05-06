@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import emailjs from "@emailjs/browser";
 import { Grid } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { Box } from "@mui/system";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import ContactForm from "./ContactForm";
+import Vk from "./../assets/Images/vk.png";
+import Telegram from "./../assets/Images/telegram.png";
+import WhatsUp from "./../assets/Images/whatsup.png";
 
 const Contacts = () => {
+
+    const dispatch = useDispatch();
 
     const [mailData, setMailData] = useState({
         name: '',
@@ -19,34 +23,24 @@ const Contacts = () => {
         message: ''
     });
 
+    const sendEmail = (e) => {
+        e.preventDefault();
+        dispatch({ type: "NOTIFICATION", payload: '' });
+        emailjs.sendForm('service_pmo85ri', 'template_koe4xwt', e.target, 'WYnU8-UJETj1GEigF');
+        setMailData({
+            name: '',
+            tel: '',
+            email: '',
+            service: '',
+            message: ''
+        });
+        dispatch({ type: "NOTIFICATION", payload: 'Ваша заявка отправлена успешно' });
+    };
+
     return (
-        <Grid container sx={{ justifyContent: 'space-around', paddingTop: '60px', background: '#054982', paddingBottom: '50px', height: '100vh' }}>
+        <Grid container sx={{ justifyContent: 'space-around', paddingTop: '60px', background: '#054982', paddingBottom: '50px', minHeight: '100vh' }}>
             <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Box sx={{ width: '70%', display: 'flex', flexDirection: 'column' }}>
-                    <form autoComplete="off" /* onSubmit={handleSubmit} */>
-                        <TextField required name="title" variant="filled" label="Ваше имя" sx={{ margin: '20px 0', background: 'white' }} color="secondary" fullWidth value={mailData.name} onChange={(e) => setMailData({ ...mailData, name: e.target.value })} />
-                        <TextField required name="title" variant="filled" label="Телефон" sx={{ background: 'white' }} color="secondary" fullWidth value={mailData.tel} onChange={(e) => setMailData({ ...mailData, tel: e.target.value })} />
-                        <TextField name="title" variant="filled" label="E-mail" sx={{ margin: '20px 0', background: 'white' }} color="secondary" fullWidth value={mailData.email}  onChange={(e) => setMailData({ ...mailData, email: e.target.value })}  />
-                        <TextField name="title" variant="filled" label="Услуга / консультация" sx={{ background: 'white' }} color="secondary" fullWidth value={mailData.service}  onChange={(e) => setMailData({ ...mailData, service: e.target.value })}  />
-                        <TextField
-                            id="outlined-multiline-flexible"
-                            label="Сообщение"
-                            multiline
-                            fullWidth
-                            rows={8}
-                            variant="filled"
-                            sx={{ margin: '20px 0', background: 'white' }}
-                            maxRows={10}
-                            required
-                            color="secondary"
-                        value={mailData.message}
-                        onChange={(e) => setMailData({ ...mailData, message: e.target.value })} 
-                        />
-                        <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                            < Button variant="contained" color="secondary" size="large" type="submit" sx={{ color: 'white' }} >Оставить заявку</Button>
-                        </Box>
-                    </form>
-                </Box>
+                <ContactForm mailData={mailData} sendEmail={sendEmail} setMailData={setMailData} />
             </Grid>
             <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>
                 <Box sx={{ width: '80%' }}>
@@ -73,7 +67,13 @@ const Contacts = () => {
                         <MailOutlineIcon sx={{ color: '#054982', width: { xs: '30px', md: '50px' }, height: { xs: '30px', md: '50px' }, marginRight: '20px' }} />
                         <Typography sx={{ fontSize: { xs: '16px', md: '25px' }, fontWeight: '700', lineHeight: '34px', fontFamily: 'Helvetica', color: '#054982', textDecoration: 'underline' }}> keskonsalt@yandex.ru </Typography>
                     </Box>
+                    <Box sx={{ display: 'flex', gap: '20px', justifyContent: 'center', paddingTop: '30px' }}>
+                        <a target="_blank" href={'http://'}><img src={Vk} alt="vk" style={{ height: '40px', cursor: 'pointer' }}></img></a>
+                        <a target="_blank" href={'http://'}><img src={Telegram} alt="telegram" style={{ height: '40px', cursor: 'pointer' }}></img></a>
+                        <a target="_blank" href={'http://'}><img src={WhatsUp} alt="whatsup" style={{ height: '40px', cursor: 'pointer' }}></img></a>
+                    </Box>
                 </Box>
+
             </Grid>
         </Grid>
     )

@@ -1,8 +1,10 @@
 
+
 const initialState = {
     ref: '',
-    page: '',
-    paragraf: ''
+    page: 'panel1',
+    paragraf: 'paragraf1.0',
+    notification: ''
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +19,8 @@ export default (state = initialState, action) => {
             return { ...state, paragraf: action.payload }
         case "CLEAR_PAGE":
             return { ...state, page: '' }
+        case "NOTIFICATION":
+            return { ...state, notification: action.payload }
         default:
             return state;
     }

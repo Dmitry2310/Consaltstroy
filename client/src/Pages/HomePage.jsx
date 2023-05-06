@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useDispatch } from "react-redux";
 import Cover from './../assets/Images/Cover.png';
 import HandsIcon from './../assets/Images/HandsIcon.png';
 import SignIcon from './../assets/Images/SignIcon.png';
@@ -23,6 +22,8 @@ import icon6 from './../assets/Images/icon6.png';
 import icon7 from './../assets/Images/icon7.png';
 import bussinessImage from './../assets/Images/bussinessImage.png';
 import { useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 
 import { Container } from "@mui/system";
 import Button from '@mui/material/Button';
@@ -51,53 +52,38 @@ const intoductionBlock = [
     }
 ];
 
-const welcomeBlockButtons = [
-    {
-        title: "Наша деятельность",
-        color: "primary"
-    },
-    {
-        title: "Наши услуги",
-        color: "third"
-    },
-    {
-        title: "Проекты",
-        color: "third"
-    },
-    {
-        title: "Оставить заявку",
-        color: "secondary"
-    }
-];
-
 const cardServices = [
     {
         title: "Составление сметной документации ",
         img: crad1pic,
         text: "Компания “Консалтэкспертстрой” предлагает услуги по составлению сметной документации. Наши специалисты имеют большой опыт работы в данной области и готовы помочь вам определить реальные затраты на строительство или ремонт объекта недвижимости. Мы гарантируем точность и актуальность наших расчетов, а также своевременное выполнение всех работ. Обращайтесь к нам, и мы с удовольствием поможем вам в решении всех вопросов, связанных с составлением сметной документации.",
         cardColor: "#054982",
-        textColor: "#ffffff"
+        textColor: "#ffffff",
+        panel: 'panel5'
     },
     {
         title: "Финансово-технический аудит",
         img: crad2pic,
         text: "Мы проведем комплексную оценку вашей финансовой и технической деятельности, выявим проблемные зоны и предоставим рекомендации по их устранению. Наши эксперты проведут анализ финансовой отчетности, управленческих процессов, технического оборудования и технологических процессов, чтобы помочь вам оптимизировать работу вашей организации.",
         cardColor: "#ffffff",
-        textColor: "#2B3F74"
+        textColor: "#2B3F74",
+        panel: 'panel4'
     },
     {
         title: "Услуги технического заказчика",
         img: crad3pic,
         text: "Предоставляем услуги технического заказчика, обеспечивая полный контроль над строительным процессом. Наша команда профессионалов поможет Вам сократить расходы и время на строительство, а также обеспечить высокое качество работ. Доверьте нам свой проект и получите результат, о котором мечтали!",
         cardColor: "#054982",
-        textColor: "#ffffff"
+        textColor: "#ffffff",
+        panel: 'panel1'
     },
     {
         title: "Независимая экспертиза сметной документации",
         img: crad4pic,
         text: "Вы готовитесь к строительству или реконструкции объекта, но не уверены в правильности составления сметной документации? Наша компания предлагает услугу независимой экспертизы сметной документации, которая поможет вам защитить свои интересы и обеспечить прозрачность в строительной сфере.Независимая экспертиза сметной документации - это комплексная оценка сметы на соответствие нормам безопасности, стандартам качества и экологическим нормам. Наши высококвалифицированные эксперты проведут детальный анализ составленной сметы на корректность расчетов, правильность выбора материалов и оборудования.",
         cardColor: "#ffffff",
-        textColor: "#2B3F74"
+        textColor: "#2B3F74",
+        panel: 'panel2'
     },
     {
         title: "Оценка стоимости",
@@ -111,7 +97,8 @@ const cardServices = [
         img: crad6pic,
         text: "Мы предлагаем комплексный подход к сметному консалтингу, который включает в себя анализ и оценку сметной документации, а также рекомендации по ее улучшению. Мы также поможем вам принять решение о выборе подрядчика и контролировать выполнение работ в соответствии с составленной сметой.Наша компания гарантирует высокое качество услуг, оперативность и индивидуальный подход к каждому клиенту. Мы всегда готовы помочь Вам в решении любых вопросов, связанных с реализацией Вашего проекта. Обращайтесь к нам за сметным консалтингом, и мы сделаем все возможное, чтобы Ваш проект стал успешным и экономически эффективным!",
         cardColor: "#ffffff",
-        textColor: "#2B3F74"
+        textColor: "#2B3F74",
+        panel: 'panel3'
     },
 ];
 
@@ -156,10 +143,12 @@ const ourAdvatages = [
 const HomePage = () => {
 
     const ref = useSelector((state) => state.manage.ref)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const aboutOnClickRef = useRef(null);
     const contactOnClickRef = useRef(null);
-    const dispatch = useDispatch();
+    const ourServices = useRef(null);
 
     useEffect(() => {
         if (ref === 'contact') {
@@ -176,6 +165,41 @@ const HomePage = () => {
             block: 'start',
         });
     };
+
+    const goToContactForm = () => {
+        scrollEffect(contactOnClickRef);
+    }
+    const goToServices = () => {
+        scrollEffect(ourServices);
+    }
+
+    const goToPageInfo = (panel) =>{
+        dispatch({ type: 'GO_TO_PAGE', payload: panel });
+        navigate('/info')
+    }
+
+    const welcomeBlockButtons = [
+        {
+            title: "Наша деятельность",
+            color: "primary",
+            click: goToServices
+        },
+        {
+            title: "Наши услуги",
+            color: "third",
+            click: goToServices
+        },
+        {
+            title: "Проекты",
+            color: "third"
+        },
+        {
+            title: "Оставить заявку",
+            color: "secondary",
+            click: goToContactForm,
+            textColor: 'white'
+        }
+    ];
 
     return (
         <Container maxWidth="xl">
@@ -226,8 +250,8 @@ const HomePage = () => {
                     <Grid item xs={12} md={5} lg={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         {welcomeBlockButtons.map((but) => {
                             return (
-                                <Button key={but.title} variant="contained" color={but.color} sx={{ width: '287px', height: '69px', marginTop: '10px', borderRadius: '15px' }}>
-                                    <Typography sx={{ fontStyle: 'italic' }}>{but.title}</Typography>
+                                <Button key={but.title} onClick={but?.click} variant="contained" color={but.color} sx={{ width: '287px', height: '69px', marginTop: '10px', borderRadius: '15px' }}>
+                                    <Typography sx={{ fontStyle: 'italic', color: but.textColor }}>{but.title}</Typography>
                                 </Button>
                             )
                         })}
@@ -250,7 +274,7 @@ const HomePage = () => {
                 </Grid>
             </Box>
             <Box>
-                <Box sx={{ paddingTop: '50px' }}>
+                <Box sx={{ paddingTop: '50px' }} ref={ourServices}>
                     <Typography sx={{ textAlign: 'center', width: '100%', color: '#02081685', fontFamily: 'Helvetica', fontWeight: '700', fontSize: '24px', textDecoration: 'underline' }}>НАШИ УСЛУГИ</Typography>
                 </Box>
                 <Grid container sx={{ padding: '40px 0 0 0', justifyContent: 'center' }} gap={1} >
@@ -269,7 +293,7 @@ const HomePage = () => {
                                         <Typography color={card.textColor} sx={{ textAlign: 'center', width: '98%', fontFamily: 'Helvetica', fontWeight: '400', fontStyle: 'italic', fontSize: { xs: '12px', md: '16px', lg: '18px' } }}>{card.text}</Typography>
                                     </Box>
                                     <Box sx={{ display: 'flex', flexGrow: '0' }}>
-                                        <Button variant="text" color="secondary" sx={{ marginLeft: '10%', padding: '25px', marginTop: 'auto' }}>
+                                        <Button variant="text" onClick={() => goToPageInfo(card.panel)} color="secondary" sx={{ marginLeft: '10%', padding: '25px', marginTop: 'auto' }}>
                                             <Typography sx={{ textDecoration: 'underline', fontStyle: 'italic' }}>Подробнее</Typography>
                                             <ChevronRightIcon />
                                         </Button>
@@ -280,12 +304,12 @@ const HomePage = () => {
                     })}
                 </Grid>
             </Box>
-            <Box ref={aboutOnClickRef} sx={{ width: '100%', minHeight: { xs: '650px' ,sm: '1000px'}, backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
+            <Box ref={aboutOnClickRef} sx={{ width: '100%', minHeight: { xs: '650px', sm: '1000px' }, backgroundImage: `url(${bussinessImage})`, marginTop: '60px', position: 'relative' }}>
                 <Box sx={{ background: 'rgba(0, 0, 0, 0.5)', mixBlendMode: 'multiply', height: '100%', width: '100%', position: 'absolute' }}></Box>
                 <Box sx={{ position: 'absolute', top: '0', width: '100%', display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ width: { md: '100%', lg: '60%' }, padding: '20px 0 0 15px' }}>
                         <Typography sx={{ fontWeight: '700', fontSize: { xs: '16px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white', textDecoration: 'underline' }}>О нас</Typography>
-                        <Typography sx={{ fontWeight: '500', fontSize: { xs: '10px', sm: '12px', md: '15px' }, fontStyle: 'italic', color: 'white', padding: { xs: '8px 10px 0 10px' , md:'20px 40px 0 20px'}, textAlign: 'center' }}>   Компания “Консалтэкспертстрой” - это команда профессионалов, специализирующихся на ведении объектов капитального строительства полного цикла: оформление исходно-разрешительной документации, составление и экспертиза сметной документации, оценка объектов недвижимости, проектирование, инженерное и правовое сопровождение строительных работ, ввод в эксплуатацию.
+                        <Typography sx={{ fontWeight: '500', fontSize: { xs: '10px', sm: '12px', md: '15px' }, fontStyle: 'italic', color: 'white', padding: { xs: '8px 10px 0 10px', md: '20px 40px 0 20px' }, textAlign: 'center' }}>   Компания “Консалтэкспертстрой” - это команда профессионалов, специализирующихся на ведении объектов капитального строительства полного цикла: оформление исходно-разрешительной документации, составление и экспертиза сметной документации, оценка объектов недвижимости, проектирование, инженерное и правовое сопровождение строительных работ, ввод в эксплуатацию.
                             Наша команда экспертов имеет богатый опыт работы в области строительства и   недвижимости, и готова предложить широкий спектр услуг для различных типов объектов. Мы разрабатываем проектную документацию с учетом всех норм и правил строительства, а также гарантируем контроль за ее выполнением в процессе строительства.
                             Мы также предоставляем услуги оценки недвижимости и объектов строительства, включая юридическую экспертизу и анализ рыночной стоимости. Наши специалисты используют современные методы оценки и профессионально подходят к выполнению всех задач, чтобы обеспечить точность и достоверность результатов.
                             Мы поможем Вам определить реальную стоимость строительства, реконструкции или ремонта объекта недвижимости, составить смету и контролировать ее выполнение. Наши специалисты готовы разработать индивидуальное техническое задание и проектную документацию, учитывая Ваши требования и пожелания.
@@ -294,12 +318,12 @@ const HomePage = () => {
                             Обращайтесь к нам, и мы с удовольствием поможем Вам реализовать Ваши проекты!</Typography>
                     </Box>
                     <Box sx={{ width: '100%', paddingTop: '15px' }}>
-                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white', display: {xs: 'none', sm: 'block'} }}>НАШИ ПРЕИМУЩЕСТВА</Typography>
+                        <Typography sx={{ fontWeight: '700', fontSize: { xs: '18px', md: '25px' }, textAlign: 'center', fontFamily: 'Helvetica', color: 'white', display: { xs: 'none', sm: 'block' } }}>НАШИ ПРЕИМУЩЕСТВА</Typography>
                     </Box>
                     <Grid container gap={1} sx={{ justifyContent: 'space-around', paddingTop: '20px', dipslay: { sm: 'none' } }}>
                         {ourAdvatages.map((card, i) => {
                             return (
-                                <Grid key={i} item sx={{ display: {xs: 'none', sm: 'flex'}, flexDirection: 'column', alignItems: 'center' }} sm={3} md={2} lg={1.3} >
+                                <Grid key={i} item sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'center' }} sm={3} md={2} lg={1.3} >
                                     <Box sx={{ height: { xs: '80px', md: '120px', lg: '140px' }, width: { xs: '80px', md: '120px', lg: '140px' }, borderRadius: '160px', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: { lg: `${card.pad}` } }}>
                                         <Box sx={{ height: { xs: '50px', lg: '70px' }, width: { xs: '50px', lg: '70px' }, display: 'flex' }}>
                                             <img alt="icon" src={card.img} />
