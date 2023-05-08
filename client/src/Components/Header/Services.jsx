@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import ConsaltMenu from './ConsaltMenu';
-import CreateDocMenu from './CreateDocMenu';
 import TechCustomerMenu from './TechCustomerMenu';
 import "./styles.css";
 import { useNavigate } from "react-router";
@@ -65,12 +63,12 @@ const Services = () => {
 
     return (
         <Box ref={ref} sx={{ position: 'relative' }}>
-            <Button onClick={openMenu} sx={{ my: 2, color: 'white', marginLeft: '35%' }}> {/* SERVICES TABLE */}
+            <Button onClick={openMenu} sx={{ my: 2, color: 'white', marginLeft: '50%' }}> {/* SERVICES TABLE */}
                 услуги
                 <ArrowDropDown color='secondary' sx={{ width: '40px' }} />
             </Button>
             {openDropMenu ?
-                <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', bottom: '-285px', left: '-120px', background: 'white', zIndex: '10', width: '240px', padding: '10px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', bottom: '-305px', left: '-130px', background: 'white', zIndex: '10', width: '240px', padding: '10px' }}>
                     <Box onMouseEnter={() => onMouseEnter('services')} onMouseLeave={onMouseLeave} className='menuItem' onClick={() => goToInfoPage('panel1')}>
                         <Typography color="primary" className="menuItemText">Услуги технического заказчика</Typography>
                         <ChevronRightIcon color="secondary" />

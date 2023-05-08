@@ -32,6 +32,10 @@ import Box from '@mui/material/Box';
 import { Grid } from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Contacts from "../Components/Contacts";
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Fade from '@mui/material/Fade';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 const intoductionBlock = [
     {
@@ -86,11 +90,12 @@ const cardServices = [
         panel: 'panel2'
     },
     {
-        title: "Оценка стоимости",
+        title: "Стоимостной инжиниринг",
         img: crad5pic,
-        text: "Оценка стоимости недвижимости является ключевым фактором при покупке, продаже или сдаче в аренду объекта недвижимости. Компания 'Консалтэкспертстрой' предоставляет высококачественные услуги по оценке стоимости. Наша команда состоит из опытных и квалифицированных экспертов, которые используют современные методы и технологии, чтобы обеспечить наших клиентов точной и объективной оценкой стоимости их недвижимости.   Обратитесь к нам сегодня, и мы гарантируем, что Вы получите высококачественную и надежную услугу по оценке стоимости Вашегообъекта.",
+        text: "Наша компания предлагает широкий спектр услуг по стоимостному инжинирингу для различных видов проектов. Мы проводим комплексный анализ затрат, планируем бюджет, выявляем и устраняем риски, предлагаем оптимизацию расходов и помогаем нашим клиентам улучшить эффективность проекта. Наша команда опытных специалистов гарантирует высокое качество услуг и индивидуальный подход к каждому клиенту. Мы работаем в разных отраслях и предоставляем услуги как для малого, так и для крупного бизнеса. Обращайтесь к нам, чтобы оптимизировать бюджет своего проекта и достичь максимальных результатов.",
         cardColor: "#054982",
-        textColor: "#ffffff"
+        textColor: "#ffffff",
+        panel: 'panel6'
     },
     {
         title: "Сметный консалтинг",
@@ -140,7 +145,7 @@ const ourAdvatages = [
     },
 ];
 
-const HomePage = () => {
+const HomePage = (props) => {
 
     const ref = useSelector((state) => state.manage.ref)
     const dispatch = useDispatch();
@@ -173,9 +178,12 @@ const HomePage = () => {
         scrollEffect(ourServices);
     }
 
-    const goToPageInfo = (panel) =>{
+    const goToPageInfo = (panel) => {
         dispatch({ type: 'GO_TO_PAGE', payload: panel });
         navigate('/info')
+    }
+    const goToProjects = () => {
+        navigate('/projects')
     }
 
     const welcomeBlockButtons = [
@@ -191,7 +199,8 @@ const HomePage = () => {
         },
         {
             title: "Проекты",
-            color: "third"
+            color: "third",
+            click: goToProjects
         },
         {
             title: "Оставить заявку",
@@ -201,13 +210,49 @@ const HomePage = () => {
         }
     ];
 
+    function ScrollTop(props) {
+        const { children, window } = props;
+        // Note that you normally won't need to set the window ref as useScrollTrigger
+        // will default to window.
+        // This is only being set here because the demo is in an iframe.
+        const trigger = useScrollTrigger({
+            target: window ? window() : undefined,
+            disableHysteresis: true,
+            threshold: 100,
+        });
+
+        const handleClick = (event) => {
+            const anchor = (event.target.ownerDocument || document).querySelector(
+                '#back-to-top-anchor',
+            );
+
+            if (anchor) {
+                anchor.scrollIntoView({
+                    block: 'center',
+                });
+            }
+        };
+
+        return (
+            <Fade in={trigger}>
+                <Box
+                    onClick={handleClick}
+                    role="presentation"
+                    sx={{ position: 'fixed', bottom: 56, right: 106 }}
+                >
+                    {children}
+                </Box>
+            </Fade>
+        );
+    }
+
     return (
         <Container maxWidth="xl">
             <Box sx={{ width: '100%', height: '420px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                 <img alt="backgroundImage" src={Cover} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <Box sx={{ background: 'rgba(0, 0, 0, 0.5)', mixBlendMode: 'multiply', height: '420px', width: '100%', position: 'absolute' }}></Box>
                 <Box sx={{ position: 'absolute', top: '0', left: '0', height: '420px', width: '100%' }}>
-                    <Grid container >
+                    <Grid container id="back-to-top-anchor" >
                         <Grid item xs={12} sx={{ marginTop: '10%', paddingLeft: '3%', paddingBottom: '3px', position: 'relative' }}>
                             <Typography component="div" gutterBottom sx={{ textDecoration: 'underline', color: '#ffffff' }}>
                                 <Box fontStyle="italic" fontWeight={700} fontSize={{ xs: '25px', sm: '30px', md: '60px' }} fontFamily="Helvetica" color="white">
@@ -224,7 +269,7 @@ const HomePage = () => {
                                 </Typography>
                             </Grid>
                             <Grid item md={8} lg={6}>
-                                <Grid container sx={{ justifyContent: 'center' }}>
+                                <Grid container sx={{ justifyContent: 'center', paddingRight: { xs: 'none', md: '10px' } }}>
                                     {intoductionBlock.map((block) => {
                                         return (
                                             <Grid key={block.title} item xs={6} md={3} sx={{ padding: { xs: '5px' } }}>
@@ -339,6 +384,11 @@ const HomePage = () => {
             <Box ref={contactOnClickRef}>
                 <Contacts />
             </Box>
+            <ScrollTop {...props}>
+                <Fab size="large" aria-label="scroll back to top">
+                    <KeyboardArrowUpIcon color="secondary" />
+                </Fab>
+            </ScrollTop>
         </Container>
     )
 };

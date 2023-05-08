@@ -155,7 +155,7 @@ const Header = () => {
                                 key={page.page}
                                 name={page.name}
                                 onClick={(e) => handleCloseNavMenu(e)}
-                                sx={{ color: 'white', display: 'block', marginLeft: { sm: '4%', lg: '7%' } }}
+                                sx={{ color: 'white', display: 'block', marginLeft: { sm: '4%', lg: '6%' } }}
                             >
                                 {page.page}
                             </Button>
@@ -170,14 +170,17 @@ const Header = () => {
                         }
                     </Box>
 
-                    <Box sx={{ display: { xs: 'flex', md: 'none', marginRight: '20px' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, marginRight: '20px' }}>
                         <Services />
                     </Box>
 
-                    <Box sx={{ flexGrow: '0', display: { xs: 'none', lg: 'flex' }, flexDirection: 'column' }}>    {/* RIGHT TABLE CONTACTS*/}
-                        <Box sx={{ display: 'flex', gap: '5px', }}>
+                    <Box sx={{ flexGrow: '0', display: { xs: 'none', lg: 'flex' }, flexDirection: 'column', paddingRight: '20px' }}>    {/* RIGHT TABLE CONTACTS*/}
+                        <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
                             <LocalPhoneIcon sx={{ color: 'white', width: '40px' }} />
-                            <Typography variant="body2"> + 7 (999)999-99-99 </Typography>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
+                                <Typography variant="caption"> + 7 (916)053-37-91 </Typography>
+                                <Typography variant="caption"> + 7 (903)777-10-13 </Typography>
+                            </Box>
                         </Box>
                         <Box sx={{ display: 'flex', gap: '10px' }}>
                             <MailOutlineIcon sx={{ color: 'white', width: '40px' }} />
@@ -188,7 +191,6 @@ const Header = () => {
             </Container>
         </AppBar >
     )
-
 }
 
 export default Header;

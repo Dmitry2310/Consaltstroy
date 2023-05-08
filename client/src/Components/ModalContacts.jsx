@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import ContactForm from './ContactForm';
 import { useEffect } from 'react';
+import { ERROR } from './../Constants/actionTypes';
 
 const style = {
     position: 'absolute',
@@ -36,19 +37,29 @@ export default function ModalContacts({ handleClose, open, title }) {
 
     const dispatch = useDispatch();
 
+    const [checked, setChecked] = useState(false);
+
+    const handleChangeCheckBox = (event) => {
+        setChecked(event.target.checked);
+    }
     const sendEmail = (e) => {
         e.preventDefault();
-        dispatch({type: "NOTIFICATION", payload: ''});
-        emailjs.sendForm('service_pmo85ri', 'template_koe4xwt', e.target, 'WYnU8-UJETj1GEigF');
-        setMailData({
-            name: '',
-            tel: '',
-            email: '',
-            service: '',
-            message: ''
-        });
-        dispatch({type: "NOTIFICATION", payload: 'Ваша заявка отправлена успешно'});
-        handleClose();
+        if (checked === true) {
+            dispatch({ type: "NOTIFICATION", payload: '' });
+            emailjs.sendForm('service_pmo85ri', 'template_koe4xwt', e.target, 'WYnU8-UJETj1GEigF');
+            setMailData({
+                name: '',
+                tel: '',
+                email: '',
+                service: '',
+                message: ''
+            });
+            setChecked(false);
+            dispatch({ type: "NOTIFICATION", payload: 'Ваша заявка отправлена успешно' });
+            handleClose();
+        } else {
+            dispatch({ type: ERROR , payload: 'Подтвердите что вы не робот' });
+        }
     };
 
     useEffect(() => {
@@ -72,7 +83,7 @@ export default function ModalContacts({ handleClose, open, title }) {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <ContactForm mailData={mailData} setMailData={setMailData} sendEmail={sendEmail}/>
+                        <ContactForm mailData={mailData} setMailData={setMailData} sendEmail={sendEmail} checked={checked} handleChangeCheckBox={handleChangeCheckBox}/>
                     </Box>
                 </Fade>
             </Modal>

@@ -2,12 +2,13 @@ import React from "react";
 import { Box } from "@mui/system";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Typography } from "@mui/material";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-const ContactForm = ({mailData, setMailData, sendEmail }) => {
+const ContactForm = ({ mailData, setMailData, sendEmail, handleChangeCheckBox, checked }) => {
 
     return (
-        <Box sx={{ width: { xs: '90%' ,md:'70%'}, display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
+        <Box sx={{ width: { xs: '90%', md: '70%' }, display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
             <form autoComplete="off" onSubmit={sendEmail}>
                 <TextField required name="customer_name" variant="filled" label="Ваше имя" sx={{ margin: '20px 0', background: 'white' }} color="secondary" fullWidth value={mailData.name} onChange={(e) => setMailData({ ...mailData, name: e.target.value })} />
                 <TextField required name="customer_phone" variant="filled" label="Телефон" sx={{ background: 'white' }} color="secondary" fullWidth value={mailData.tel} onChange={(e) => setMailData({ ...mailData, tel: e.target.value })} />
@@ -28,8 +29,14 @@ const ContactForm = ({mailData, setMailData, sendEmail }) => {
                     value={mailData.message}
                     onChange={(e) => setMailData({ ...mailData, message: e.target.value })}
                 />
+                {((mailData.message && mailData.name && mailData.tel) !== '')
+                    &&
+                    <Box sx={{ display: 'flex', justifyContent: 'center', color: '#054982', background: '#EAF9FD', height: '60px', width: '200px', borderRadius: '15px', margin: '0 auto' }}>
+                        <FormControlLabel required onChange={handleChangeCheckBox} checked={checked} control={<Checkbox color="secondary" />} label="Я не робот" />
+                    </Box>
+                }
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    < Button variant="contained" color="secondary" size="large" type="submit" sx={{ color: 'white' }} >Оставить заявку</Button>
+                    < Button variant="contained" color="secondary" size="large" type="submit" sx={{ color: 'white', marginTop: '20px' }} >Оставить заявку</Button>
                 </Box>
             </form>
         </Box>

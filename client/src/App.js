@@ -14,6 +14,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import InfoPage from "./Pages/InfoPage";
 import NewsDetails from "./Pages/NewsDetails";
 import Login from "./Pages/Login";
+import Projects from "./Pages/Projects";
 import CreateNews from "./Pages/CreateNews";
 import { setUser } from "./actions/auth";
 import 'react-toastify/dist/ReactToastify.css';
@@ -86,6 +87,7 @@ const App = () => {
               < Route path="/news" exact element={<News />} />
               < Route path="/news/:id" exact element={<NewsDetails />} />
               < Route path="/login" exact element={<Login />} />
+              < Route path="/projects" exact element={<Projects />} />
              {/*< Route path="/auth" exact element={<Auth />} />
             < Route path="/auth/:id" exact element={<Profile />} />
             < Route path="/user/:id" exact element={<Profile />} />*/}

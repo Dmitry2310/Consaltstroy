@@ -53,9 +53,13 @@ const Footer = () => {
                     {token ? 'Выйти' : 'Войти'}
                 </Typography>
             </Button>
-            <Box sx={{ width: { xs: '200px', md: '280px' } }}>
-                <Typography color='white' sx={{ fontSize: '12px', fontWeight: '400', textDecoration: 'underline' }}>Контакты</Typography>
-                <Typography color='white' sx={{ fontSize: '12px', fontWeight: '400' }}>тел.</Typography>
+            <Box sx={{ width: { xs: '200px', md: '280px' }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', gap: '5px'}}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', color: 'white' }}>
+                        <Typography variant="caption"> + 7 (916)053-37-91 </Typography>
+                        <Typography variant="caption"> + 7 (903)777-10-13 </Typography>
+                    </Box>
+                </Box>
                 <Typography color='white' sx={{ fontSize: '12px', fontWeight: '400' }}>email: keskonsalt@yandex.ru</Typography>
             </Box>
         </Box>
